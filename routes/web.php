@@ -1,22 +1,25 @@
 <?php
 
+use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\GeographyController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
 
 Route::get('/', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::prefix('api')
+    ->name('api.')
+    ->group(function () {
+        Route::prefix('v1')
+            ->name('v1.')
+            ->group(function () {
+                Route::get('cities', [GeographyController::class, 'cities'])->name('cities');
+                Route::get('countries', [GeographyController::class, 'countries'])->name('countries');
+            });
+    });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

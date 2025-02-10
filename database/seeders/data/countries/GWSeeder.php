@@ -1,0 +1,130 @@
+<?php
+
+return [
+    [
+        'name' => 'Buba',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15, "lat": 11.58333}',
+    ],
+    [
+        'name' => 'Gabú',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -14.21667, "lat": 12.28333}',
+    ],
+    [
+        'name' => 'Quebo',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -14.93333, "lat": 11.33333}',
+    ],
+    [
+        'name' => 'Farim',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.22167, "lat": 12.48389}',
+    ],
+    [
+        'name' => 'Bolama',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.46667, "lat": 11.58333}',
+    ],
+    [
+        'name' => 'Cacheu',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -16.165831, "lat": 12.27056}',
+    ],
+    [
+        'name' => 'Catió',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.25, "lat": 11.28333}',
+    ],
+    [
+        'name' => 'Bissau',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.59767, "lat": 11.86357}',
+    ],
+    [
+        'name' => 'Mansôa',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.31889, "lat": 12.07333}',
+    ],
+    [
+        'name' => 'Bafatá',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -14.66667, "lat": 12.16667}',
+    ],
+    [
+        'name' => 'Bafatá',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -14.75, "lat": 12.16667}',
+    ],
+    [
+        'name' => 'Bambato',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -14.58333, "lat": 12.51667}',
+    ],
+    [
+        'name' => 'Bubaque',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.83333, "lat": 11.28333}',
+    ],
+    [
+        'name' => 'Intusso',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.65, "lat": 11.9}',
+    ],
+    [
+        'name' => 'Cachanga',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.28333, "lat": 11.35}',
+    ],
+    [
+        'name' => 'Bissorã',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.4475, "lat": 12.22306}',
+    ],
+    [
+        'name' => 'Canchungo',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -16.033331, "lat": 12.06722}',
+    ],
+    [
+        'name' => 'Quinhámel',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.85, "lat": 11.88333}',
+    ],
+    [
+        'name' => 'Sinchã Jai',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -14.43333, "lat": 12.06667}',
+    ],
+    [
+        'name' => 'Bissau Region',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15.59097, "lat": 11.85391}',
+    ],
+    [
+        'name' => 'Republic of Guinea-Bissau',
+        'state' => '',
+        'country' => 'GW',
+        'coord' => '{"lon": -15, "lat": 12}',
+    ],
+];

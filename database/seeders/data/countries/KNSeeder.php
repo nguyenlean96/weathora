@@ -1,0 +1,142 @@
+<?php
+
+return [
+    [
+        'name' => 'Lodge',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.75, "lat": 17.35}',
+    ],
+    [
+        'name' => 'Cayon',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.73333, "lat": 17.35}',
+    ],
+    [
+        'name' => 'Trants',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.849998, "lat": 17.383329}',
+    ],
+    [
+        'name' => 'Douglas',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.716671, "lat": 17.316669}',
+    ],
+    [
+        'name' => 'Brumaire',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.73333, "lat": 17.299999}',
+    ],
+    [
+        'name' => 'Newcastle',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.583328, "lat": 17.200001}',
+    ],
+    [
+        'name' => 'Brown Hill',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.599998, "lat": 17.116671}',
+    ],
+    [
+        'name' => 'Basseterre',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.726101, "lat": 17.29484}',
+    ],
+    [
+        'name' => 'Monkey Hill',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.716671, "lat": 17.316669}',
+    ],
+    [
+        'name' => 'Charlestown',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.616669, "lat": 17.133329}',
+    ],
+    [
+        'name' => 'Half Way Tree',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.816669, "lat": 17.33333}',
+    ],
+    [
+        'name' => 'Cotton Ground',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.616669, "lat": 17.16667}',
+    ],
+    [
+        'name' => 'Dieppe Bay Town',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.815281, "lat": 17.41297}',
+    ],
+    [
+        'name' => 'Sandy Point Town',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.833328, "lat": 17.35}',
+    ],
+    [
+        'name' => 'Saint John Figtree',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.599998, "lat": 17.116671}',
+    ],
+    [
+        'name' => 'Saint Thomas Lowland',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.599998, "lat": 17.16667}',
+    ],
+    [
+        'name' => 'Saint James Windward',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.566669, "lat": 17.16667}',
+    ],
+    [
+        'name' => 'Saint Peter Basseterre',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.716671, "lat": 17.316669}',
+    ],
+    [
+        'name' => 'Saint George Basseterre',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.683331, "lat": 17.26667}',
+    ],
+    [
+        'name' => 'Saint Thomas Middle Island',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.799999, "lat": 17.35}',
+    ],
+    [
+        'name' => 'Christ Church Nichola Town',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.76667, "lat": 17.35}',
+    ],
+    [
+        'name' => 'Federation of Saint Kitts and Nevis',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.75, "lat": 17.33333}',
+    ],
+    [
+        'name' => 'Saint Peter’s',
+        'state' => '',
+        'country' => 'KN',
+        'coord' => '{"lon": -62.716671, "lat": 17.299999}',
+    ],
+];

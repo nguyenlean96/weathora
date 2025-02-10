@@ -1,0 +1,142 @@
+<?php
+
+return [
+    [
+        'name' => 'Edd',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 41.692501, "lat": 13.92972}',
+    ],
+    [
+        'name' => 'Albo',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 38.5, "lat": 15.11667}',
+    ],
+    [
+        'name' => 'Assab',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 42.739441, "lat": 13.00917}',
+    ],
+    [
+        'name' => 'Keren',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 38.458061, "lat": 15.77778}',
+    ],
+    [
+        'name' => 'Mai-ti',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 42.216671, "lat": 13}',
+    ],
+    [
+        'name' => 'Asmara',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 38.933331, "lat": 15.33333}',
+    ],
+    [
+        'name' => 'Mescul',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 37.5, "lat": 15.3}',
+    ],
+    [
+        'name' => 'Massawa',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 39.450001, "lat": 15.60972}',
+    ],
+    [
+        'name' => 'Teseney',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 36.657501, "lat": 15.11}',
+    ],
+    [
+        'name' => 'Barentu',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 37.592781, "lat": 15.11389}',
+    ],
+    [
+        'name' => 'Adi Keyh',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 39.37722, "lat": 14.84444}',
+    ],
+    [
+        'name' => 'Aligider',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 36.48333, "lat": 15.11667}',
+    ],
+    [
+        'name' => 'Agametta',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 39.216671, "lat": 15.33333}',
+    ],
+    [
+        'name' => 'Mendefera',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 38.815281, "lat": 14.88722}',
+    ],
+    [
+        'name' => 'Debub Region',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 38.833328, "lat": 14.83333}',
+    ],
+    [
+        'name' => 'Anseba Region',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 37.5, "lat": 16.5}',
+    ],
+    [
+        'name' => 'Maekel Region',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 38.916672, "lat": 15.33333}',
+    ],
+    [
+        'name' => 'State of Eritrea',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 39, "lat": 15}',
+    ],
+    [
+        'name' => 'Gash-Barka Region',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 37.5, "lat": 15.25}',
+    ],
+    [
+        'name' => 'Northern Red Sea Region',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 39, "lat": 16}',
+    ],
+    [
+        'name' => 'Southern Red Sea Region',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 41.5, "lat": 13.75}',
+    ],
+    [
+        'name' => 'Ak’ordat',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 37.886669, "lat": 15.54861}',
+    ],
+    [
+        'name' => 'Dek’emhāre',
+        'state' => '',
+        'country' => 'ER',
+        'coord' => '{"lon": 39.047501, "lat": 15.07}',
+    ],
+];

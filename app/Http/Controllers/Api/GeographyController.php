@@ -19,8 +19,11 @@ class GeographyController extends Controller
              * Query the country_code column and paginate the results
              */
             $query = City::select('country')
-                ->distinct()
-                ->orderBy('country');
+                ->advancedFilter([
+                    's' => request()->input('search') ?: null,
+                    'order_column' => request()->input('order_column') ?: 'country',
+                    'order_direction' => request()->input('order_direction') ?: 'asc',
+                ]);
 
             if (request()->has('limit')) {
                 // Validate the limit query parameter
@@ -30,7 +33,7 @@ class GeographyController extends Controller
 
                 $query = $query->paginate($limit['limit']);
             } else {
-                $query = $query->get();
+                $query = $query->paginate(10);
             }
 
             return $this->success($query);
@@ -45,8 +48,12 @@ class GeographyController extends Controller
             /**
              * Query the city column and paginate the results
              */
-            $query = City::select('name')
-                ->orderBy('name');
+            $query = City::select('name', 'country')
+                ->advancedFilter([
+                    's' => request()->input('search') ?: null,
+                    'order_column' => request()->input('order_column') ?: 'name',
+                    'order_direction' => request()->input('order_direction') ?: 'asc',
+                ]);
 
             if (request()->has('limit')) {
                 // Validate the limit query parameter

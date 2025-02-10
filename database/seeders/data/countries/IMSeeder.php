@@ -1,0 +1,142 @@
+<?php
+
+return [
+    [
+        'name' => 'Bride',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.38921, "lat": 54.382561}',
+    ],
+    [
+        'name' => 'Dalby',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.72923, "lat": 54.168789}',
+    ],
+    [
+        'name' => 'Colby',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.70592, "lat": 54.096649}',
+    ],
+    [
+        'name' => 'Sulby',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.47968, "lat": 54.32283}',
+    ],
+    [
+        'name' => 'Laxey',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.39985, "lat": 54.230171}',
+    ],
+    [
+        'name' => 'Onchan',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.45324, "lat": 54.17329}',
+    ],
+    [
+        'name' => 'Crosby',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.56667, "lat": 54.183331}',
+    ],
+    [
+        'name' => 'Foxdale',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.61667, "lat": 54.166672}',
+    ],
+    [
+        'name' => 'Andreas',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.43333, "lat": 54.366669}',
+    ],
+    [
+        'name' => 'Douglas',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.48333, "lat": 54.150002}',
+    ],
+    [
+        'name' => 'Lezayre',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.41667, "lat": 54.316669}',
+    ],
+    [
+        'name' => 'Ballabeg',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.68333, "lat": 54.099998}',
+    ],
+    [
+        'name' => 'Maughold',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.31844, "lat": 54.298771}',
+    ],
+    [
+        'name' => 'Glen Maye',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.7, "lat": 54.183331}',
+    ],
+    [
+        'name' => 'Port Erin',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.75099, "lat": 54.084869}',
+    ],
+    [
+        'name' => 'Ballasalla',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.62962, "lat": 54.095901}',
+    ],
+    [
+        'name' => 'Isle of Man',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.5, "lat": 54.25}',
+    ],
+    [
+        'name' => 'Isle of Man',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.4844, "lat": 54.15052}',
+    ],
+    [
+        'name' => 'Ronaldsway',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.61667, "lat": 54.083328}',
+    ],
+    [
+        'name' => 'Castletown',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.65365, "lat": 54.074451}',
+    ],
+    [
+        'name' => 'Saint Marks',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.6, "lat": 54.133331}',
+    ],
+    [
+        'name' => 'Kirkmichael',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.58748, "lat": 54.285622}',
+    ],
+    [
+        'name' => 'Kirk Braddan',
+        'state' => '',
+        'country' => 'IM',
+        'coord' => '{"lon": -4.51667, "lat": 54.166672}',
+    ],
+];

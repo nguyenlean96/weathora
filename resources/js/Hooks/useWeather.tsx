@@ -1,27 +1,30 @@
 import { useMemo } from 'react';
 import axios from 'axios';
-import { cities as listOfCities } from '@/Data';
+// import { cities as listOfCities } from '@/Data';
+let listOfCities: any[] = [];
 
 export default function useWeather() {
     //   const OPEN_WEATHER_API = `${process.env.NEXT_PUBLIC_OPENWEATHER_API}/${process.env.NEXT_PUBLIC_OPENWEATHER_API_VERSION}`;
 
-    async function currentWeatherApi(city: string) {
+    async function currentWeatherApi(city: string): Promise<any> {
         try {
             throw new Error('Not implemented');
-            return await axios
-                .get(`${OPEN_WEATHER_API}/weather?q=${city}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_KEY}`)
-                .then((res) => res.data);
+            // return await axios
+            //     .get(`${OPEN_WEATHER_API}/weather?q=${city}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_KEY}`)
+            //     .then((res) => res.data);
+            return null;
         } catch (error) {
             console.error(error);
         }
     }
 
-    async function forecastWeatherApi(city: string) {
+    async function forecastWeatherApi(city: string): Promise<any> {
         try {
             throw new Error('Not implemented');
-            return await axios
-                .get(`${OPEN_WEATHER_API}/forecast?q=${city}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_KEY}`)
-                .then((res) => res.data);
+            // return await axios
+            //     .get(`${OPEN_WEATHER_API}/forecast?q=${city}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_KEY}`)
+            //     .then((res) => res.data);
+            return null;
         } catch (error) {
             console.error(error);
         }

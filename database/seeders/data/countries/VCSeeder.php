@@ -1,0 +1,142 @@
+<?php
+
+return [
+    [
+        'name' => 'Layou',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.26667, "lat": 13.2}',
+    ],
+    [
+        'name' => 'Biabou',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.133331, "lat": 13.2}',
+    ],
+    [
+        'name' => 'Dovers',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.183331, "lat": 12.88333}',
+    ],
+    [
+        'name' => 'Clifton',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.416672, "lat": 12.58333}',
+    ],
+    [
+        'name' => 'Greathead',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.220829, "lat": 13.14417}',
+    ],
+    [
+        'name' => 'Kingstown',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.224751, "lat": 13.15872}',
+    ],
+    [
+        'name' => 'Paget Farm',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.25, "lat": 12.98333}',
+    ],
+    [
+        'name' => 'Arnos Vale',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.200001, "lat": 13.13333}',
+    ],
+    [
+        'name' => 'Grenadines',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.25, "lat": 12.83333}',
+    ],
+    [
+        'name' => 'Redemption',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.229439, "lat": 13.16444}',
+    ],
+    [
+        'name' => 'Georgetown',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.130199, "lat": 13.2879}',
+    ],
+    [
+        'name' => 'Barrouallie',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.26667, "lat": 13.23333}',
+    ],
+    [
+        'name' => 'Charlestown',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.333328, "lat": 12.68333}',
+    ],
+    [
+        'name' => 'Byera Village',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.116669, "lat": 13.25}',
+    ],
+    [
+        'name' => 'Chateaubelair',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.25, "lat": 13.28333}',
+    ],
+    [
+        'name' => 'Kingstown Park',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.235001, "lat": 13.15833}',
+    ],
+    [
+        'name' => 'Port Elizabeth',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.23333, "lat": 13.01667}',
+    ],
+    [
+        'name' => 'Parish of Charlotte',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.150002, "lat": 13.26667}',
+    ],
+    [
+        'name' => 'Parish of Saint David',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.200001, "lat": 13.3}',
+    ],
+    [
+        'name' => 'New Sandy Bay Village',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.133331, "lat": 13.35}',
+    ],
+    [
+        'name' => 'Parish of Saint George',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.200001, "lat": 13.16667}',
+    ],
+    [
+        'name' => 'Parish of Saint Andrew',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.23333, "lat": 13.2}',
+    ],
+    [
+        'name' => 'Saint Vincent and the Grenadines',
+        'state' => '',
+        'country' => 'VC',
+        'coord' => '{"lon": -61.200001, "lat": 13.08333}',
+    ],
+];

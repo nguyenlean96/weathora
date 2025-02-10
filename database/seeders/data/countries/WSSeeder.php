@@ -1,0 +1,136 @@
+<?php
+
+return [
+    [
+        'name' => 'Apia',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.766663, "lat": -13.83333}',
+    ],
+    [
+        'name' => 'Sina',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.994827, "lat": -13.83908}',
+    ],
+    [
+        'name' => 'Malie',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.846893, "lat": -13.80044}',
+    ],
+    [
+        'name' => 'Falefa',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.588043, "lat": -13.88695}',
+    ],
+    [
+        'name' => 'Afenga',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.853073, "lat": -13.79726}',
+    ],
+    [
+        'name' => 'Utuloa',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -172.63501, "lat": -13.50813}',
+    ],
+    [
+        'name' => 'Safotu',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -172.401764, "lat": -13.45132}',
+    ],
+    [
+        'name' => 'Vaiusu',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.79332, "lat": -13.82678}',
+    ],
+    [
+        'name' => 'Faleula',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.831253, "lat": -13.79456}',
+    ],
+    [
+        'name' => 'Siusega',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.813965, "lat": -13.84432}',
+    ],
+    [
+        'name' => 'Matavai',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.647675, "lat": -14.03208}',
+    ],
+    [
+        'name' => 'Vaitele',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.802536, "lat": -13.81964}',
+    ],
+    [
+        'name' => 'Lotofaga',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.857803, "lat": -13.97643}',
+    ],
+    [
+        'name' => 'Gataivai',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -172.388016, "lat": -13.7736}',
+    ],
+    [
+        'name' => 'Nofoalii',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.958725, "lat": -13.8217}',
+    ],
+    [
+        'name' => 'Lufilufi',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.598572, "lat": -13.87449}',
+    ],
+    [
+        'name' => 'Solosolo',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.641815, "lat": -13.87504}',
+    ],
+    [
+        'name' => 'Tuamasaga',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.800003, "lat": -13.91667}',
+    ],
+    [
+        'name' => 'Satapuala',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.97963, "lat": -13.83535}',
+    ],
+    [
+        'name' => 'Leulumoega',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.961273, "lat": -13.82298}',
+    ],
+    [
+        'name' => 'Fasitoouta',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -171.940628, "lat": -13.81163}',
+    ],
+    [
+        'name' => 'Independent State of Samoa',
+        'state' => '',
+        'country' => 'WS',
+        'coord' => '{"lon": -172.178314, "lat": -13.8031}',
+    ],
+];

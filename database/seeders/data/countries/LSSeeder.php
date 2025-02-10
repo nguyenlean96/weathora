@@ -1,0 +1,130 @@
+<?php
+
+return [
+    [
+        'name' => 'Leribe',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 28.04501, "lat": -28.871849}',
+    ],
+    [
+        'name' => 'Tosing',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 27.9, "lat": -30.35}',
+    ],
+    [
+        'name' => 'Maseru',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 27.48333, "lat": -29.316669}',
+    ],
+    [
+        'name' => 'Maseru',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 28, "lat": -29.5}',
+    ],
+    [
+        'name' => 'Quthing',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 27.70027, "lat": -30.400009}',
+    ],
+    [
+        'name' => 'Quthing',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 28, "lat": -30.41667}',
+    ],
+    [
+        'name' => 'Mafeteng',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 27.23744, "lat": -29.823}',
+    ],
+    [
+        'name' => 'Maputsoe',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 27.9, "lat": -28.883329}',
+    ],
+    [
+        'name' => 'Mokhotlong',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 29.067511, "lat": -29.289391}',
+    ],
+    [
+        'name' => 'Thaba-Tseka',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 28.6084, "lat": -29.522039}',
+    ],
+    [
+        'name' => 'Butha-Buthe',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 28.249359, "lat": -28.76659}',
+    ],
+    [
+        'name' => 'Butha-Buthe',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 28.5, "lat": -28.83333}',
+    ],
+    [
+        'name' => 'Machekoaneng',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 27.545, "lat": -29.43532}',
+    ],
+    [
+        'name' => 'Teyateyaneng',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 27.748949, "lat": -29.14719}',
+    ],
+    [
+        'name' => 'Leribe District',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 28.252661, "lat": -29.03651}',
+    ],
+    [
+        'name' => 'Mafeteng District',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 27.502621, "lat": -29.8041}',
+    ],
+    [
+        'name' => 'Kingdom of Lesotho',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 28.25, "lat": -29.5}',
+    ],
+    [
+        'name' => 'Qacha’s Nek',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 28.68936, "lat": -30.11537}',
+    ],
+    [
+        'name' => 'Qacha’s Nek',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 28.75, "lat": -30}',
+    ],
+    [
+        'name' => 'Mohale’s Hoek',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 27.47691, "lat": -30.151369}',
+    ],
+    [
+        'name' => 'Mohale’s Hoek District',
+        'state' => '',
+        'country' => 'LS',
+        'coord' => '{"lon": 27.66667, "lat": -30.16667}',
+    ],
+];

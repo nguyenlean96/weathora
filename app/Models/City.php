@@ -39,4 +39,8 @@ class City extends Model
         'country',
         'country_code',
     ];
+
+    protected $casts = [
+        'coord' => 'array',
+    ];
 }

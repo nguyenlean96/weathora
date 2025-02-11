@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'open_weather' => [
+        'api' => env('OPENWEATHER_API_URL'),
+        'key' => env('OPENWEATHER_KEY'),
+    ],
+
+    'unsplash' => [
+        'api' => env('UNSPLASH_API') . '?client_id=' . env('UNSPLASH_ACCESS_KEY'),
+    ],
+
 ];

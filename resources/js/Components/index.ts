@@ -1,5 +1,5 @@
 import Main from './main';
-import SearchPanel from './search-panel';
+import SearchPanel from './SearchPanel';
 import CurrentWeather from './current-weather';
 import { HourlyForecast, DailyForecast } from './weather-forecast';
 import WindSpeedPanel from './wind-speed';

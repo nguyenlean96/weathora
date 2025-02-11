@@ -1,64 +1,88 @@
-import { useMemo } from 'react';
-import axios from 'axios';
-// import { cities as listOfCities } from '@/Data';
-let listOfCities: any[] = [];
+import { useEffect, useState } from 'react';
 
-export default function useWeather() {
-    //   const OPEN_WEATHER_API = `${process.env.NEXT_PUBLIC_OPENWEATHER_API}/${process.env.NEXT_PUBLIC_OPENWEATHER_API_VERSION}`;
+export function useForecastData(city: string) {
+    const [loading, setLoading] = useState<boolean>(false);
+    const [data, setData] = useState<any>(null);
+    const [error, setError] = useState<any>(null);
 
-    async function currentWeatherApi(city: string): Promise<any> {
+    const fetchData = async () => {
+        setLoading(true);
         try {
-            throw new Error('Not implemented');
-            // return await axios
-            //     .get(`${OPEN_WEATHER_API}/weather?q=${city}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_KEY}`)
-            //     .then((res) => res.data);
-            return null;
+            const res = await fetch(route('api.v1.openweather.current', { location: city }));
+            const data = await res.json();
+            setData(data);
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false);
         }
     }
 
-    async function forecastWeatherApi(city: string): Promise<any> {
-        try {
-            throw new Error('Not implemented');
-            // return await axios
-            //     .get(`${OPEN_WEATHER_API}/forecast?q=${city}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_KEY}`)
-            //     .then((res) => res.data);
-            return null;
-        } catch (error) {
-            console.error(error);
+    useEffect(() => {
+        fetchData();
+
+        return () => {
+            setData(null);
+            setError(null);
         }
-    }
+    }, [city]);
 
-    const cities =
-        useMemo(() =>
-            Object.values(listOfCities)
-                .map((city) => city.name)
-            , []);
+    useEffect(() => {
+        fetchData();
 
-    function doesCityExist(targetCity: string) {
-        let low = 0;
-        let high = cities.length - 1;
-
-        while (low <= high) {
-            let mid = Math.floor((low + high) / 2);
-            let midCity = cities[mid];
-
-            if (midCity < targetCity) {
-                low = mid + 1;
-            } else if (midCity > targetCity) {
-                high = mid - 1;
-            } else {
-                return true; // City found
-            }
+        return () => {
+            setData(null);
+            setError(null);
         }
-        return false; // City not found
-    }
+    }, []);
 
     return {
-        cities,
-        doesCityExist,
-        currentWeatherApi,
-        forecastWeatherApi
+        loading,
+        data,
+        fetcher: fetchData,
+    };
+}
+
+export function useWeatherData(city: string) {
+    const [loading, setLoading] = useState<boolean>(false);
+    const [data, setData] = useState<any>(null);
+    const [error, setError] = useState<any>(null);
+
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch(route('api.v1.openweather.current', { location: city }));
+            const data = await res.json();
+            setData(data);
+        } catch (error) {
+            console.error(error);
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+
+        return () => {
+            setData(null);
+            setError(null);
+        }
+    }, [city]);
+
+    useEffect(() => {
+        fetchData();
+
+        return () => {
+            setData(null);
+            setError(null);
+        }
+    }, []);
+
+    return {
+        loading,
+        data,
+        fetcher: fetchData,
     };
 }

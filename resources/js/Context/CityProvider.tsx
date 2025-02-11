@@ -43,7 +43,7 @@ export function CityProvider({ children }: PropsWithChildren) {
         currentPage,
         totalPages,
         isLoading,
-        citiesList,
+        data,
         loadMoreCities,
         fetchData,
         pendingReset,
@@ -52,11 +52,11 @@ export function CityProvider({ children }: PropsWithChildren) {
 
     const hasMore = useMemo(() => {
         return currentPage < totalPages;
-    }, [currentPage, totalPages, citiesList])
+    }, [currentPage, totalPages, isLoading]);
 
     useEffect(() => {
         reset();
-    }, [city, setCity])
+    }, [city])
 
     return (
         <CityContext.Provider value={{
@@ -66,7 +66,7 @@ export function CityProvider({ children }: PropsWithChildren) {
             isLoading: isLoading || pendingReset,
             city,
             setCity,
-            citiesList,
+            data,
             fetchData: loadMoreCities
         }}>
             {children}

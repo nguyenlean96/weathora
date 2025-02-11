@@ -8,15 +8,7 @@ import { Utils, Input } from '@/Components';
  * And allow dev to modify the value and see the changes in real time
  * @returns
  */
-export default function DebugPanel({
-  width,
-  height,
-  props
-}: {
-  width: number;
-  height: number;
-  props?: any
-}) {
+export default function DebugPanel(_props: any) {
   const {
     city,
     setCity,

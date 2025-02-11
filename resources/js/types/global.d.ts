@@ -10,6 +10,24 @@ declare global {
 
     /* eslint-disable no-var */
     var route: typeof ziggyRoute;
+
+    interface City { name: string; country: string };
+    interface IForecastDateTime {
+        dt: number;
+        dt_txt: string;
+        main: any;
+        pop: number;
+        sys: {
+            pod: string;
+        };
+        visibility: number;
+        weather: Array<any>;
+        wind: {
+            speed: number;
+            deg: number;
+            gust?: number;
+        };
+    }
 }
 
 declare module '@inertiajs/core' {

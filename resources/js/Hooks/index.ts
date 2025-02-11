@@ -1,11 +1,12 @@
-import useWeather from "./useWeather";
+import { useWeatherData, useForecastData } from "./useWeather";
 import useDebounce from "./useDebounce";
-import useUnsplashImage from "./useUnsplashImage";
+import { useUnsplashImage } from "./useUnsplashImage";
 import useInfiniteLoading from "./useInfiniteLoading";
 
-export { 
-  useWeather, 
-  useDebounce,
-  useUnsplashImage,
-  useInfiniteLoading,
+export {
+    useWeatherData,
+    useForecastData,
+    useDebounce,
+    useUnsplashImage,
+    useInfiniteLoading,
 };

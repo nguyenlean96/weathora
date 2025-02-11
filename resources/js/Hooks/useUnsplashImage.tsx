@@ -1,21 +1,23 @@
-export default function useUnsplashImage() {
+import { useState } from "react";
 
-  const getImage = async (keyword: string) => {
-    try {
-      const img = await fetch(
-        `https://api.unsplash.com/search/photos?query=${String(keyword).replace(
-          ' ',
-          '%20'
-        )}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}&order_by=downloads`
-      );
-      return img.json();
+export function useUnsplashImage() {
+    const [loading, setLoading] = useState<boolean>(false);
 
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const fetchData = async (keyword: string): Promise<any> => {
+        setLoading(true);
+        try {
+            const res = await fetch(
+                route('api.v1.unsplash.photos', { search: keyword })
+            );
+            return await res.json();
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  return {
-    getImage
-  };
+    return {
+        fetchData,
+    };
 };

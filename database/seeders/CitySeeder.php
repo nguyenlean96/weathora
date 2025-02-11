@@ -282,13 +282,25 @@ class CitySeeder extends Seeder
         foreach ($countries as $c) {
             $cities = include $c;
             foreach ($cities as $city) {
-                City::create([
-                    'name' => $city['name'],
-                    'state' => $city['state'],
-                    'country' => $country_names[$city['country']],
-                    'country_code' => $city['country'],
-                    'coord' => $city['coord'],
-                ]);
+                /**
+                 * Make sure combination of:
+                 *  - name
+                 *  - state
+                 *  - country
+                 *
+                 * is unique.
+                 */
+                City::updateOrCreate(
+                    [
+                        'name' => $city['name'],
+                        'state' => $city['state'],
+                        'country_code' => $city['country'],
+                    ],
+                    [
+                        'country' => $country_names[$city['country']],
+                        'coord' => $city['coord'],
+                    ]
+                );
             }
         }
     }

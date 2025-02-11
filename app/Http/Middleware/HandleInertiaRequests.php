@@ -34,6 +34,11 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'app' => [
+                'name' => config('app.name'),
+                'locale' => $request->getLocale(),
+                'production' => app()->isProduction(),
+            ]
         ];
     }
 }

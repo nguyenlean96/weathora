@@ -2,9 +2,11 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { useWeatherContext } from "@/Context/WeatherDataProvider";
 import { useDebounce } from "@/Hooks";
 import { useCity } from "@/Context/CityProvider";
+import { usePage } from "@inertiajs/react";
 
 
 export default function SearchPanel(_props: any) {
+    const { app } = usePage().props;
     const cityInput = useRef<HTMLInputElement>(null);
     const {
         currentPage,
@@ -85,7 +87,7 @@ export default function SearchPanel(_props: any) {
     // }, [city]);
     return (
         <div className='font-[family-name:var(--font-geist-sans)] md:grid md:grid-cols-1'>
-            <div className="relative bg-transparent md:bg-gradient-to-br from-slate-500 to-blue-500 w-full md:h-screen md:max-h-screen md:overflow-hidden col-span-1 p-2 pb-12 flex flex-col overflow-visible">
+            <div className={"relative bg-transparent md:bg-gradient-to-br from-slate-500 to-blue-500 w-full md:h-screen md:max-h-screen md:overflow-hidden col-span-1 p-2 flex flex-col overflow-visible " + ((app.production) ? "pb-12" : "")}>
                 <div className="w-full flex items-center sticky ring-1 md:ring-0 ring-black/10 rounded-full shadow-lg md:shadow-sm top-0 p-0 md:px-2 md:py-3 z-20">
                     <input title="City" type="text" ref={cityInput}
                         placeholder="Enter a city"
@@ -156,12 +158,17 @@ export default function SearchPanel(_props: any) {
                         </li>
                     </ul>
                 </div>
-                <div className="absolute bottom-0 right-0 left-0 p-2 text-gray-600">
-                    <div className="flex items-center gap-x-1 w-full justify-center">
-                        <div className="p-1 px-2 bg-gray-300 rounded">{currentPage}</div>
-                        <div className="p-1 px-2 bg-gray-300 rounded">{totalPages}</div>
-                    </div>
-                </div>
+                {
+                    app.production
+                    && (
+                        <div className="absolute bottom-0 right-0 left-0 p-2 text-gray-600">
+                            <div className="flex items-center gap-x-1 w-full justify-center">
+                                <div className="p-1 px-2 bg-gray-300 rounded">{currentPage}</div>
+                                <div className="p-1 px-2 bg-gray-300 rounded">{totalPages}</div>
+                            </div>
+                        </div>
+                    )
+                }
             </div>
         </div>
     )

@@ -11,4 +11,9 @@ export type PageProps<
     auth: {
         user: User;
     };
+    app: {
+        name: string;
+        locale: string;
+        production: boolean;
+    }
 };

@@ -1,16 +1,9 @@
 import {
-    useEffect,
     useState,
     createContext,
     useContext,
     type PropsWithChildren,
 } from 'react';
-import {
-    useWeatherData,
-    useForecastData,
-    useUnsplashImage,
-} from '@/Hooks';
-import { useCity } from './CityProvider';
 
 const samples = [
     'London',
@@ -57,11 +50,6 @@ export const WeatherContext = createContext<any>({});
 
 export default function WeatherProvider({ children }: PropsWithChildren) {
     const foundEntry = samples[Math.floor(Math.random() * samples.length)];
-
-    const { getImage } = useUnsplashImage();
-    const [unsplashSearchTerm, setUnsplashSearchTerm] = useState<string | null>(null);
-    const [cityBackgroundUrl, setCityBackgroundUrl] = useState(null);
-    const [isCityBackgroundLoading, setIsCityBackgroundLoading] = useState(false);
 
     const [isFogEffectForcedOn, setIsFogEffectForcedOn] = useState<boolean>(false);
     const [isSunFlareEffectForcedOn, setIsSunFlareEffectForcedOn] = useState<boolean>(false);

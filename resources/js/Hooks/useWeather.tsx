@@ -8,9 +8,9 @@ export function useForecastData(city: string) {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const res = await fetch(route('api.v1.openweather.current', { location: city }));
+            const res = await fetch(route('api.v1.openweather.current') + `?location=${city}`);
             const data = await res.json();
-            setData(data);
+            setData(data.data);
         } catch (error) {
             console.error(error);
         } finally {
@@ -51,9 +51,10 @@ export function useWeatherData(city: string) {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const res = await fetch(route('api.v1.openweather.current', { location: city }));
+            console.log(route('api.v1.openweather.current') + `?location=${city}`);
+            const res = await fetch(route('api.v1.openweather.current') + `?location=${city}`);
             const data = await res.json();
-            setData(data);
+            setData(data.data);
         } catch (error) {
             console.error(error);
             setError(error);

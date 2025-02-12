@@ -27,8 +27,7 @@ class WeatherReport extends Model
 
     protected $fillable = [
         'location_id',
-        'coord',
-        'base',
+        'report_base_id',
         'timestamp',
         'temperature',
         'feels_like',
@@ -45,7 +44,7 @@ class WeatherReport extends Model
     protected $orderable = [
         'id',
         'location_id',
-        'base',
+        'report_base_id',
         'timestamp',
         'temperature',
         'feels_like',
@@ -62,7 +61,7 @@ class WeatherReport extends Model
     protected $filterable = [
         'id',
         'location_id',
-        'base',
+        'report_base_id',
         'timestamp',
         'temperature',
         'feels_like',

@@ -282,28 +282,13 @@ class CitySeeder extends Seeder
         foreach ($countries as $c) {
             $cities = include $c;
 
-            $cityData = array_map(function ($city) use ($country_names) {
-                $record = [
-                    'name' => $city['name'],
-                    'country_code' => $city['country'],
-                    'country' => $country_names[$city['country']],
-                    'coord' => $city['coord'],
-                ];
-
-                if (strlen($city['state']) > 0) {
-                    $record['state'] = $city['state'];
-                }
-
-                return $record;
-            }, $cities);
-
             if (!app()->isProduction()) {
                 // Check if the current country is in the list of ['US','CA','AU','GB']
                 if (!in_array($cityData[0]['country_code'], ['US', 'CA', 'VN'])) {
                     continue;
                 }
             }
-            foreach ($cityData as $city) {
+            foreach ($cities as $city) {
                 /**
                  * Make sure combination of:
                  *  - name

@@ -19,7 +19,11 @@ export default function CurrentWeatherProvider({ children }: PropsWithChildren) 
     const {loading, data, fetcher} = useWeatherData(city);
 
     return (
-        <CurrentWeatherContext.Provider value={{}}>
+        <CurrentWeatherContext.Provider value={{
+            loading,
+            data,
+            fetcher
+        }}>
             {children}
         </CurrentWeatherContext.Provider>
     );

@@ -1,21 +1,14 @@
-import { useWeatherContext } from '@/Context/WeatherDataProvider'
+import { useCurrentWeather } from '@/Context/CurrentWeatherProvider';
 import { motion } from 'motion/react'
 
 export default function CurrentWeather() {
-    // const { isACityFound, currentWeather } = useWeatherContext();
-    const isACityFound = false,
-        currentWeather: {
-            weather: { icon: string; description: string }[],
-            rain: { '1h': number },
-            snow: { '1h': number },
-            main: { temp_max: number, temp_min: number, feels_like: number; temp: number },
-            name: string,
-        } = { weather: [{ icon: '', description: '' }], rain: { '1h': 0 }, snow: { '1h': 0 }, main: { temp: 0, temp_max: 0, temp_min: 0, feels_like: 0 }, name: '' };
+    const { loading: isLoading, data: currentWeather } = useCurrentWeather();
     return (
         <div>
             {/* CITY NAME */}
             {
-                isACityFound && currentWeather
+                !isLoading &&
+                currentWeather
                 &&
                 <div className="bg-gray-50/60 backdrop-blur-sm p-0.5 px-3 rounded w-fit mb-3 resize-none hover:resize hover:ring-1 ring-black/10">
                     <motion.svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
@@ -34,7 +27,8 @@ export default function CurrentWeather() {
             }
 
             {
-                isACityFound && currentWeather &&
+                !isLoading &&
+                currentWeather &&
                 <div className="p-3 rounded-lg bg-gradient-to-r from-gray-50/20 md:from-gray-50/40 via-gray-100/40 md:via-gray-100/60 to-gray-200/50 md:to-gray-200 backdrop-blur-sm mb-3 grid grid-cols-1 xl:grid-cols-2">
                     <div className="p-6">
                         {/* CURRENT TEMPERATURE */}

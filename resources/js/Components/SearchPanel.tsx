@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import { useWeatherContext } from "@/Context/WeatherDataProvider";
 import { useDebounce } from "@/Hooks";
 import { useCity } from "@/Context/CityProvider";
 import { usePage } from "@inertiajs/react";

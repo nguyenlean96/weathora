@@ -218,26 +218,13 @@ export default function Main(_props: any) {
                             </motion.div>
                         }
                         <div className="grid grid-cols-2 gap-2 h-[10rem] mb-3">
-                            {
-                                // isACityFound
-                                false
-                                && <SunRise />
-                            }
-                            {
-                                // isACityFound
-                                false
-                                && <SunSet />
-                            }
+                            <SunRise />
+                            <SunSet />
                         </div>
-                        {
-                            // isACityFound
-                            false
-                            &&
-                            <WindSpeedPanel
-                                width={width}
-                                height={height}
-                            />
-                        }
+                        <WindSpeedPanel
+                            width={width}
+                            height={height}
+                        />
                     </div>
                     <div>
                         <DailyForecast

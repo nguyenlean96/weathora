@@ -281,6 +281,13 @@ class CitySeeder extends Seeder
         $countries = File::glob($dataPath . '/*.php');
         foreach ($countries as $c) {
             $cities = include $c;
+
+            if (!app()->isProduction()) {
+                // Check if the current country is in the list of ['US','CA','AU','GB']
+                if (!in_array($cityData[0]['country_code'], ['US', 'CA', 'VN'])) {
+                    continue;
+                }
+            }
             foreach ($cities as $city) {
                 /**
                  * Make sure combination of:

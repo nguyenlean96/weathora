@@ -299,7 +299,7 @@ class CitySeeder extends Seeder
 
             if (!app()->isProduction()) {
                 // Check if the current country is in the list of ['US','CA','AU','GB']
-                if (!in_array($cityData[0]['country'], ['US', 'CA', 'VN'])) {
+                if (!in_array($cityData[0]['country_code'], ['US', 'CA', 'VN'])) {
                     continue;
                 }
             }

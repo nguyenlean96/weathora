@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Support\OpenWeatherClient;
 use App\Trait\ApiResponder;
-use GuzzleHttp\Client;
 use Illuminate\Http\JsonResponse;
 
 class OpenWeatherController extends Controller
@@ -14,20 +14,16 @@ class OpenWeatherController extends Controller
     public function current(): JsonResponse
     {
         try {
-            $client = new Client();
-            $openWeatherApi = config('services.open_weather.api') . '/weather?appid=' . config('services.open_weather.key');
-
-            if (request()->has('units')) {
-                $openWeatherApi .= '&units=' . request()->get('units');
-            }
-
             if (!request()->has('location')) {
                 throw new \Exception('Location is required');
             }
 
-            $openWeatherApi .= '&q=' . request()->get('location');
+            $validated = request()->validate([
+                'location' => 'required|string',
+                'units' => 'string|in:metric,imperial|nullable',
+            ]);
 
-            $response = $client->get($openWeatherApi);
+            $response = OpenWeatherClient::getWeatherData($validated['location']);
 
             if ($response->getStatusCode() === 200) {
                 return $this->success(json_decode($response->getBody()->getContents()));
@@ -42,20 +38,17 @@ class OpenWeatherController extends Controller
     public function forecast(): JsonResponse
     {
         try {
-            $client = new Client();
-            $openWeatherApi = config('services.open_weather.api') . '/forecast?appid=' . config('services.open_weather.key');
-
-            if (request()->has('units')) {
-                $openWeatherApi .= '&units=' . request()->get('units');
-            }
-
             if (!request()->has('location')) {
                 throw new \Exception('Location is required');
             }
 
-            $openWeatherApi .= '&q=' . request()->get('location');
+            $validated = request()->validate([
+                'location' => 'required|string',
+                'units' => 'string|in:metric,imperial|nullable',
+            ]);
 
-            $response = $client->get($openWeatherApi);
+
+            $response = OpenWeatherClient::getForecastData($validated['location']);
 
             if ($response->getStatusCode() === 200) {
                 return $this->success(json_decode($response->getBody()->getContents()));

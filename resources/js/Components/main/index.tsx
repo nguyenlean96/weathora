@@ -68,7 +68,11 @@ export default function Main(_props: any) {
                 ) && (
                     <div className="z-10 absolute top-0 left-0 w-full h-screen"
                         style={{
-                            boxShadow: `inset 0 -50px 100px rgba(100, 100, 100, 0.7), inset 0 -100px 350px rgba(80, 80, 80, 0.8), inset 0 -150px 500px rgba(60, 60, 60, 0.4), inset 0 -600px 100px rgba(50, 50, 50, 0.5)`
+                            boxShadow: `inset 0 -50px 100px rgba(100, 100, 100, 0.7),
+                            inset 0 -100px 350px rgba(80, 80, 80, 0.8),
+                            inset 0 -150px 500px rgba(60, 60, 60, 0.4),
+                            inset 0 -600px 100px rgba(50, 50, 50, 0.5)
+                            `
                         }}
                     ></div>
                 )
@@ -170,8 +174,7 @@ export default function Main(_props: any) {
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                     <div>
                         {
-                            // isACityFound
-                            false
+                            currentWeather
                             &&
                             <motion.div className="bg-blue-500/80 backdrop-blur-sm rounded-xl w-full h-fit p-2 grid grid-cols-3 py-4 text-white mb-3"
                                 initial={{ opacity: 0, y: 20 }}

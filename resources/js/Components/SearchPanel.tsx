@@ -21,11 +21,8 @@ export default function SearchPanel(_props: any) {
     const cities = useMemo(() => citiesData, [isLoading, citiesData]);
 
     const loadMoreRef = useRef(null);
-    const [searchBox, setSearchBox] = useState<string>(city);
     const [typingCity, setTypingCity] = useState<string>('');
     const [inFocus, setInFocus] = useState<boolean>(false);
-    // const [isLoading, setIsLoading] = useState<boolean>(false);
-    // const [filteredCities, setFilteredCities] = useState<string[]>(cities);
 
     const triggerUpdateCity = async () => {
         return new Promise((resolve: (value?: any) => void) => {

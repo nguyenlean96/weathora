@@ -11,15 +11,17 @@ export default function Main(_props: any) {
         isSunFlareEffectForcedOn,
         isRainEffectForcedOn,
     } = useWeatherContext();
-    const { data: currentWeather }: {
-        data: {
-            weather: { icon: string }[],
-            rain: { '1h': number },
-            snow: { '1h': number },
-            main: { temp_max: number, temp_min: number, feels_like: number },
-            name: string,
+    const { data: currentWeather }
+        : {
+            data: {
+                weather: { icon: string }[],
+                rain: { '1h': number },
+                snow: { '1h': number },
+                main: { temp_max: number, temp_min: number, feels_like: number },
+                name: string,
+            }
         }
-    } = useCurrentWeather();
+        = useCurrentWeather();
 
     return currentWeather && (
         <div className="relative w-full h-full">

@@ -2,6 +2,7 @@ import { useWeatherContext } from "@/Context/WeatherDataProvider";
 import { motion } from "motion/react";
 import { WindSpeedPanel, CurrentWeather, DailyForecast, HourlyForecast, Effects, SunRise, SunSet } from "@/Components";
 import { useViewportSize } from '@mantine/hooks';
+import { useCurrentWeather } from "@/Context/CurrentWeatherProvider";
 
 export default function Main(_props: any) {
     const { width, height } = useViewportSize();
@@ -10,13 +11,15 @@ export default function Main(_props: any) {
         isSunFlareEffectForcedOn,
         isRainEffectForcedOn,
     } = useWeatherContext();
-    const currentWeather: {
-        weather: { icon: string }[],
-        rain: { '1h': number },
-        snow: { '1h': number },
-        main: { temp_max: number, temp_min: number, feels_like: number },
-        name: string,
-    } = { weather: [{ icon: '' }], rain: { '1h': 0 }, snow: { '1h': 0 }, main: { temp_max: 0, temp_min: 0, feels_like: 0 }, name: '' };
+    const { data: currentWeather }: {
+        data: {
+            weather: { icon: string }[],
+            rain: { '1h': number },
+            snow: { '1h': number },
+            main: { temp_max: number, temp_min: number, feels_like: number },
+            name: string,
+        }
+    } = useCurrentWeather();
 
     return currentWeather && (
         <div className="relative w-full h-full">

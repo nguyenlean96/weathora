@@ -44,4 +44,10 @@ return [
         'api' => env('UNSPLASH_API') . '?client_id=' . env('UNSPLASH_ACCESS_KEY'),
     ],
 
+    'google_maps' => [
+        'api' => [
+            'timezone' => env('GOOGLE_MAPS_API') . '/timezone/json?key=' . env('GOOGLE_MAPS_API_KEY'),
+        ]
+    ]
+
 ];

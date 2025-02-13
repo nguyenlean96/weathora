@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import { useDebouncedCallback } from '@mantine/hooks';
+import { useDebounce } from "@/Hooks";
 import { useCity } from "@/Context/CityProvider";
 import { usePage } from "@inertiajs/react";
 
@@ -24,37 +24,11 @@ export default function SearchPanel(_props: any) {
     const [typingCity, setTypingCity] = useState<string>('');
     const [inFocus, setInFocus] = useState<boolean>(false);
 
-    const triggerUpdateCity = async () => {
-        return new Promise((resolve: (value?: any) => void) => {
-            // getData();
-            resolve();
-        })
-            .catch((error) => {
-                console.error('Error updating city: ', error);
-            });
-    };
-
     const updateDispCityDebounce = useDebounce((city: string) => {
         if (inFocus) {
             setCity((_: string) => city);
         }
-        setSearchBox((_: string) => city);
     }, 700);
-
-    // useEffect(() => {
-    //     if (searchBox.length === 0) {
-    //         setTypingCity(city);
-    //         setSearchBox(city);
-    //     }
-    // }, [isACityFound]);
-
-    // useEffect(() => {
-    // setIsLoading(true);
-    // loadItems(typingCity !== previousCity);
-    // }, [
-    //     typingCity
-    // , previousCity
-    // ]);
 
     const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
@@ -69,15 +43,15 @@ export default function SearchPanel(_props: any) {
         return () => observer.disconnect();
     }, [loadMoreRef.current, hasMore, isLoading]);
 
-    // useEffect(() => {
+    useEffect(() => {
     // Check if the cityInput.current is in focus
-    // if (cityInput.current) {
-    //     if (!inFocus) {
-    //         setTypingCity(city);
-    //         updateDispCityDebounce(city);
-    //     }
-    // }
-    // }, [city]);
+    if (cityInput.current) {
+        if (!inFocus) {
+            setTypingCity(city);
+            updateDispCityDebounce(city);
+        }
+    }
+    }, [city]);
     return (
         <div className='font-[family-name:var(--font-geist-sans)] md:grid md:grid-cols-1'>
             <div className={"relative bg-transparent md:bg-gradient-to-br from-slate-500 to-blue-500 w-full md:h-screen md:max-h-screen md:overflow-hidden col-span-1 p-2 flex flex-col overflow-visible " + ((app.production) ? "pb-12" : "")}>
@@ -93,15 +67,10 @@ export default function SearchPanel(_props: any) {
                         }}
                         onFocus={() => setInFocus(true)}
                         onBlur={() => setInFocus(false)}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                                triggerUpdateCity();
-                            }
-                        }}
                     />
                     <button type="button"
                         className="min-w-[5rem] p-1 bg-gray-200 text-gray-600 rounded-r-full pr-3"
-                        onClick={triggerUpdateCity}>
+                    >
                         {
                             // searchBox === previousCity ? 'Refresh' :
                             'Search'
@@ -116,7 +85,7 @@ export default function SearchPanel(_props: any) {
                         {
                             cities.map(
                                 (
-                                    city: { name: string; country: string },
+                                    city: {name: string; country: string},
                                     index: number
                                 ) =>
                                     (city.name && city.country) &&

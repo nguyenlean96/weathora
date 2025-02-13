@@ -6,9 +6,17 @@ export function useForecastData(city: string) {
     const [error, setError] = useState<any>(null);
 
     const fetchData = async () => {
+        if (loading) {
+            return;
+        }
+
+        if (city.length === 0) {
+            return;
+        }
+
         setLoading(true);
         try {
-            const res = await fetch(route('api.v1.openweather.current') + `?location=${city}`);
+            const res = await fetch(route('api.v1.openweather.forecast') + `?location=${city}`);
             const data = await res.json();
             setData(data.data);
         } catch (error) {
@@ -26,15 +34,6 @@ export function useForecastData(city: string) {
             setError(null);
         }
     }, [city]);
-
-    useEffect(() => {
-        fetchData();
-
-        return () => {
-            setData(null);
-            setError(null);
-        }
-    }, []);
 
     return {
         loading,
@@ -71,15 +70,6 @@ export function useWeatherData(city: string) {
             setError(null);
         }
     }, [city]);
-
-    useEffect(() => {
-        fetchData();
-
-        return () => {
-            setData(null);
-            setError(null);
-        }
-    }, []);
 
     return {
         loading,

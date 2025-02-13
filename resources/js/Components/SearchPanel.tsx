@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import { useDebounce } from "@/Hooks";
+import { useDebouncedCallback } from '@mantine/hooks';
 import { useCity } from "@/Context/CityProvider";
 import { usePage } from "@inertiajs/react";
 
@@ -24,11 +24,12 @@ export default function SearchPanel(_props: any) {
     const [typingCity, setTypingCity] = useState<string>('');
     const [inFocus, setInFocus] = useState<boolean>(false);
 
-    const updateDispCityDebounce = useDebounce((city: string) => {
-        if (inFocus) {
+    const updateDispCityDebounce = useDebouncedCallback(
+        (city: string) => {
             setCity((_: string) => city);
-        }
-    }, 700);
+        },
+        850 // debounce time 850ms - natural typing speed
+    );
 
     const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
@@ -44,13 +45,13 @@ export default function SearchPanel(_props: any) {
     }, [loadMoreRef.current, hasMore, isLoading]);
 
     useEffect(() => {
-    // Check if the cityInput.current is in focus
-    if (cityInput.current) {
-        if (!inFocus) {
-            setTypingCity(city);
-            updateDispCityDebounce(city);
+        // Check if the cityInput.current is in focus
+        if (cityInput.current) {
+            if (!inFocus) {
+                setTypingCity(city);
+                updateDispCityDebounce(city);
+            }
         }
-    }
     }, [city]);
     return (
         <div className='font-[family-name:var(--font-geist-sans)] md:grid md:grid-cols-1'>
@@ -58,7 +59,7 @@ export default function SearchPanel(_props: any) {
                 <div className="w-full flex items-center sticky ring-1 md:ring-0 ring-black/10 rounded-full shadow-lg md:shadow-sm top-0 p-0 md:px-2 md:py-3 z-20">
                     <input title="City" type="text" ref={cityInput}
                         placeholder="Enter a city"
-                        className="rounded-l-full w-full leading-5 px-3 p-1.5 dark:text-gray-600"
+                        className="rounded-full w-full leading-5 px-3 p-1.5 dark:text-gray-600"
                         value={typingCity}
                         onChange={(e) => {
                             e.preventDefault();
@@ -68,14 +69,6 @@ export default function SearchPanel(_props: any) {
                         onFocus={() => setInFocus(true)}
                         onBlur={() => setInFocus(false)}
                     />
-                    <button type="button"
-                        className="min-w-[5rem] p-1 bg-gray-200 text-gray-600 rounded-r-full pr-3"
-                    >
-                        {
-                            // searchBox === previousCity ? 'Refresh' :
-                            'Search'
-                        }
-                    </button>
                 </div>
                 <div className={
                     "max-h-[60dvh] md:max-h-full md:block md:grow overflow-y-auto bg-white ring-1 ring-black/20 rounded-lg "
@@ -85,7 +78,7 @@ export default function SearchPanel(_props: any) {
                         {
                             cities.map(
                                 (
-                                    city: {name: string; country: string},
+                                    city: City,
                                     index: number
                                 ) =>
                                     (city.name && city.country) &&
@@ -102,7 +95,15 @@ export default function SearchPanel(_props: any) {
                                             }}
                                         >
                                             <h4 className="leading-none">{city.name}</h4>
-                                            <span className="leading-none text-xs text-gray-500">{city.country}</span>
+                                            <span className="leading-none text-xs text-gray-500">
+                                                {
+                                                    city.country
+                                                    + (
+                                                        city.state && city.state.length > 0 ?
+                                                            (', ' + city.state)
+                                                            : ''
+                                                    )
+                                                }</span>
                                         </li>
                                     )
                                 // : null

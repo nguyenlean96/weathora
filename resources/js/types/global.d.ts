@@ -11,7 +11,7 @@ declare global {
     /* eslint-disable no-var */
     var route: typeof ziggyRoute;
 
-    interface City { name: string; country: string };
+    interface City { name: string; state: string | null; country: string };
     interface IForecastDateTime {
         dt: number;
         dt_txt: string;
@@ -31,5 +31,5 @@ declare global {
 }
 
 declare module '@inertiajs/core' {
-    interface PageProps extends InertiaPageProps, AppPageProps {}
+    interface PageProps extends InertiaPageProps, AppPageProps { }
 }

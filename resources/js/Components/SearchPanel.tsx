@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import { useDebounce } from "@/Hooks";
+import { useDebouncedCallback } from '@mantine/hooks';
 import { useCity } from "@/Context/CityProvider";
 import { usePage } from "@inertiajs/react";
+import { useWeatherContext } from "@/Context/WeatherDataProvider";
 
 
 export default function SearchPanel(_props: any) {
@@ -17,50 +18,20 @@ export default function SearchPanel(_props: any) {
         data: citiesData,
         fetchData,
     } = useCity();
+    const { fetchWeatherData } = useWeatherContext();
 
-    const cities = useMemo(() => {
-        //     if (isLoading) return [];
-        return citiesData;
-    }, [isLoading, citiesData]);
+    const cities = useMemo(() => citiesData, [isLoading, citiesData]);
 
     const loadMoreRef = useRef(null);
-    const [searchBox, setSearchBox] = useState<string>(city);
     const [typingCity, setTypingCity] = useState<string>('');
     const [inFocus, setInFocus] = useState<boolean>(false);
-    // const [isLoading, setIsLoading] = useState<boolean>(false);
-    // const [filteredCities, setFilteredCities] = useState<string[]>(cities);
 
-    const triggerUpdateCity = async () => {
-        return new Promise((resolve: (value?: any) => void) => {
-            // getData();
-            resolve();
-        })
-            .catch((error) => {
-                console.error('Error updating city: ', error);
-            });
-    };
-
-    const updateDispCityDebounce = useDebounce((city: string) => {
-        if (inFocus) {
+    const fetchCityWeatherData = useDebouncedCallback(
+        (city: string) => {
             setCity((_: string) => city);
-        }
-        setSearchBox((_: string) => city);
-    }, 700);
-
-    // useEffect(() => {
-    //     if (searchBox.length === 0) {
-    //         setTypingCity(city);
-    //         setSearchBox(city);
-    //     }
-    // }, [isACityFound]);
-
-    // useEffect(() => {
-    // setIsLoading(true);
-    // loadItems(typingCity !== previousCity);
-    // }, [
-    //     typingCity
-    // , previousCity
-    // ]);
+        },
+        850 // debounce time 850ms - natural typing speed
+    );
 
     const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
@@ -75,44 +46,30 @@ export default function SearchPanel(_props: any) {
         return () => observer.disconnect();
     }, [loadMoreRef.current, hasMore, isLoading]);
 
-    // useEffect(() => {
-    // Check if the cityInput.current is in focus
-    // if (cityInput.current) {
-    //     if (!inFocus) {
-    //         setTypingCity(city);
-    //         updateDispCityDebounce(city);
-    //     }
-    // }
-    // }, [city]);
+    useEffect(() => {
+        // Check if the cityInput.current is in focus
+        if (cityInput.current) {
+            if (!inFocus) {
+                setTypingCity(city);
+            }
+        }
+    }, [city]);
     return (
         <div className='font-[family-name:var(--font-geist-sans)] md:grid md:grid-cols-1'>
             <div className={"relative bg-transparent md:bg-gradient-to-br from-slate-500 to-blue-500 w-full md:h-screen md:max-h-screen md:overflow-hidden col-span-1 p-2 flex flex-col overflow-visible " + ((app.production) ? "pb-12" : "")}>
                 <div className="w-full flex items-center sticky ring-1 md:ring-0 ring-black/10 rounded-full shadow-lg md:shadow-sm top-0 p-0 md:px-2 md:py-3 z-20">
                     <input title="City" type="text" ref={cityInput}
                         placeholder="Enter a city"
-                        className="rounded-l-full w-full leading-5 px-3 p-1.5 dark:text-gray-600"
+                        className="rounded-full w-full leading-5 px-3 p-1.5 dark:text-gray-600"
                         value={typingCity}
                         onChange={(e) => {
                             e.preventDefault();
                             setTypingCity(e.target.value);
-                            updateDispCityDebounce(e.target.value);
+                            fetchCityWeatherData(e.target.value);
                         }}
                         onFocus={() => setInFocus(true)}
                         onBlur={() => setInFocus(false)}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                                triggerUpdateCity();
-                            }
-                        }}
                     />
-                    <button type="button"
-                        className="min-w-[5rem] p-1 bg-gray-200 text-gray-600 rounded-r-full pr-3"
-                        onClick={triggerUpdateCity}>
-                        {
-                            // searchBox === previousCity ? 'Refresh' :
-                            'Search'
-                        }
-                    </button>
                 </div>
                 <div className={
                     "max-h-[60dvh] md:max-h-full md:block md:grow overflow-y-auto bg-white ring-1 ring-black/20 rounded-lg "
@@ -122,7 +79,7 @@ export default function SearchPanel(_props: any) {
                         {
                             cities.map(
                                 (
-                                    city: { name: string; country: string },
+                                    city: City,
                                     index: number
                                 ) =>
                                     (city.name && city.country) &&
@@ -133,16 +90,22 @@ export default function SearchPanel(_props: any) {
                                                 + ((index !== cities.length - 1) && 'border-b')
                                             }
                                             onClick={() => {
-                                                // triggerUpdateCity();
                                                 setTypingCity(city.name);
-                                                updateDispCityDebounce(city.name);
+                                                fetchWeatherData(city.name);
                                             }}
                                         >
                                             <h4 className="leading-none">{city.name}</h4>
-                                            <span className="leading-none text-xs text-gray-500">{city.country}</span>
+                                            <span className="leading-none text-xs text-gray-500">
+                                                {
+                                                    city.country
+                                                    + (
+                                                        city.state && city.state.length > 0 ?
+                                                            (', ' + city.state)
+                                                            : ''
+                                                    )
+                                                }</span>
                                         </li>
                                     )
-                                // : null
                             )
                         }
                         {

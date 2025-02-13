@@ -1,6 +1,7 @@
 import { useWeatherData } from '@/Hooks/useWeather';
 import { useContext, createContext, type PropsWithChildren, useState, useEffect, useMemo } from 'react';
 import { useCity } from './CityProvider';
+import { useWeatherContext } from './WeatherDataProvider';
 
 const CurrentWeatherContext = createContext<any>(null);
 
@@ -15,8 +16,8 @@ export function useCurrentWeather() {
 }
 
 export default function CurrentWeatherProvider({ children }: PropsWithChildren) {
-    const { city } = useCity();
-    const {loading, data, fetcher} = useWeatherData(city);
+    const { cityWeather } = useWeatherContext();
+    const { loading, data, fetcher } = useWeatherData(cityWeather);
 
     return (
         <CurrentWeatherContext.Provider value={{

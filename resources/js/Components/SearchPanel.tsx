@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { useDebouncedCallback } from '@mantine/hooks';
 import { useCity } from "@/Context/CityProvider";
 import { usePage } from "@inertiajs/react";
+import { useWeatherContext } from "@/Context/WeatherDataProvider";
 
 
 export default function SearchPanel(_props: any) {
@@ -17,6 +18,7 @@ export default function SearchPanel(_props: any) {
         data: citiesData,
         fetchData,
     } = useCity();
+    const { fetchWeatherData } = useWeatherContext();
 
     const cities = useMemo(() => citiesData, [isLoading, citiesData]);
 
@@ -24,7 +26,7 @@ export default function SearchPanel(_props: any) {
     const [typingCity, setTypingCity] = useState<string>('');
     const [inFocus, setInFocus] = useState<boolean>(false);
 
-    const updateDispCityDebounce = useDebouncedCallback(
+    const fetchCityWeatherData = useDebouncedCallback(
         (city: string) => {
             setCity((_: string) => city);
         },
@@ -49,7 +51,6 @@ export default function SearchPanel(_props: any) {
         if (cityInput.current) {
             if (!inFocus) {
                 setTypingCity(city);
-                updateDispCityDebounce(city);
             }
         }
     }, [city]);
@@ -64,7 +65,7 @@ export default function SearchPanel(_props: any) {
                         onChange={(e) => {
                             e.preventDefault();
                             setTypingCity(e.target.value);
-                            updateDispCityDebounce(e.target.value);
+                            fetchCityWeatherData(e.target.value);
                         }}
                         onFocus={() => setInFocus(true)}
                         onBlur={() => setInFocus(false)}
@@ -89,9 +90,8 @@ export default function SearchPanel(_props: any) {
                                                 + ((index !== cities.length - 1) && 'border-b')
                                             }
                                             onClick={() => {
-                                                // triggerUpdateCity();
                                                 setTypingCity(city.name);
-                                                updateDispCityDebounce(city.name);
+                                                fetchWeatherData(city.name);
                                             }}
                                         >
                                             <h4 className="leading-none">{city.name}</h4>
@@ -106,7 +106,6 @@ export default function SearchPanel(_props: any) {
                                                 }</span>
                                         </li>
                                     )
-                                // : null
                             )
                         }
                         {

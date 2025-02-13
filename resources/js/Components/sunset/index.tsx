@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 import { useRef, useState, useEffect } from 'react';
+=======
+import { useRef, useMemo } from 'react';
+>>>>>>> 4aba730 (Fix timezone converter (#19))
 import { motion } from 'motion/react';
 import { TheSun, TheMoon } from '@/Components/celestial';
 import { useCurrentWeather } from '@/Context/CurrentWeatherProvider';
 import { getTime } from '@/Utils';
+<<<<<<< HEAD
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRotateRight, faGear, faXmark } from '@fortawesome/free-solid-svg-icons';
+=======
+>>>>>>> 4aba730 (Fix timezone converter (#19))
 
 export default function SunSet() {
     const sunsetDisplayingAreaRef = useRef<HTMLDivElement>(null);
@@ -36,6 +43,22 @@ export default function SunSet() {
         }
     }, [percentFromSunrise]);
 
+    const {
+        data: currentWeather,
+        sunsetDateTime,
+        percentFromSunrise
+    }
+        : {
+            data: any;
+            sunsetDateTime: Date;
+            percentFromSunrise: number;
+        }
+        = useCurrentWeather();
+
+    const scaledPercentFromSunrise = useMemo(() => {
+        return (92 + (percentFromSunrise * (92 - 50))) % 100;
+    }, [percentFromSunrise]);
+
     return (
         <div className={"bg-blue-500/80 backdrop-blur-sm rounded-xl overflow-hidden w-full h-full " + (currentWeather?.sys?.sunset ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-12')}
             ref={sunsetDisplayingAreaRef}
@@ -44,6 +67,7 @@ export default function SunSet() {
                 currentWeather?.sys?.sunset ? (
                     <div className="w-full h-full overflow-hidden">
                         <div className="relative w-full h-full px-2">
+<<<<<<< HEAD
                             <div className='absolute top-1.5 right-3 z-50'>
                                 <div className='flex items-center space-x-2'>
                                     {
@@ -95,6 +119,12 @@ export default function SunSet() {
                                 />
                             </div>
                             <div className="absolute left-0 top-[55%] w-full border-t-2 z-0 bg-gradient-to-b from-slate-600/20 via-slate-800/40 to-gray-800/80 h-20"></div>
+=======
+                            <div className="absolute left-0 top-0 p-1">
+                                <div className="text-2xl text-end lg:text-start"><span className="font-semibold text-white/60">Sun sets</span> <span className="text-2xl text-white/80 ">{getTime(sunsetDateTime)}</span></div>
+                            </div>
+                            <div className="absolute left-0 top-2/3 w-full border-t-2 z-0 bg-gradient-to-b from-slate-600/20 via-slate-800/60 to-gray-800 h-16"></div>
+>>>>>>> 4aba730 (Fix timezone converter (#19))
                             <div
                                 style={{
                                     transform: `translateX(${(sunsetDisplayingAreaRef.current && sunsetAnimationDivRef.current) ?
@@ -117,10 +147,18 @@ export default function SunSet() {
                                         offsetDistance: '0%',
                                     }}
                                     animate={{
+<<<<<<< HEAD
                                         offsetDistance: `${sunPosition}%`,
                                     }}
                                     transition={{
                                         duration: 1,
+=======
+                                        offsetDistance: `${scaledPercentFromSunrise}%`,
+                                    }}
+                                    transition={{
+                                        delay: 2,
+                                        duration: 2,
+>>>>>>> 4aba730 (Fix timezone converter (#19))
                                     }}
                                 >
                                     {
@@ -129,8 +167,13 @@ export default function SunSet() {
                                          *  based on the scaledPercentFromSunrise value.
                                          */
                                         (
+<<<<<<< HEAD
                                             (sunPosition > 49 && sunPosition < 93)
                                             || sunPosition < 8
+=======
+                                            (scaledPercentFromSunrise > 49 && scaledPercentFromSunrise < 93)
+                                            || scaledPercentFromSunrise < 8
+>>>>>>> 4aba730 (Fix timezone converter (#19))
                                         )
                                             ? <TheMoon />
                                             : <TheSun />

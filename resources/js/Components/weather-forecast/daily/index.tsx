@@ -1,29 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { getDayOfWeek } from '@/Utils';
-import { useWeatherContext } from '@/Context/WeatherDataProvider';
+import { useForecastDataContext } from '@/Context/ForecastDataProvider';
 
 export default function DailyForecast({ width, height, props }: { width: number; height: number; props?: any }) {
-    const {
-        // forecastData,
-        dailyForecastData,
-        isCityLoading,
-        isForecastLoading,
-        currentWeatherError,
-        forecastError
-    }: {
-        dailyForecastData: {
-            list: Array<any>;
-            message?: number;
-            cnt?: number;
-            cod?: string;
-            city?: any;
-        };
-        isCityLoading: boolean;
-        isForecastLoading: boolean;
-        currentWeatherError: any;
-        forecastError: any;
-    } = useWeatherContext();
+    const { daily: dailyForecastData, loading: isForecastLoading } = useForecastDataContext();
 
     function getTempMax() {
         if (dailyForecastData) {
@@ -57,8 +38,9 @@ export default function DailyForecast({ width, height, props }: { width: number;
     }
 
     return (
-        !isCityLoading && !isForecastLoading &&
-        dailyForecastData && (
+        !isForecastLoading
+        && dailyForecastData
+        && (
             <>
                 <motion.div className="bg-blue-500/80 backdrop-blur-sm rounded-xl w-full p-2 mb-3 grid gap-2"
                     initial={{ opacity: 0, y: 20 }}
@@ -80,7 +62,6 @@ export default function DailyForecast({ width, height, props }: { width: number;
                                         day?.weather[0] &&
                                         <ForecastDayDisplay
                                             position={index}
-                                            isCityLoading={isCityLoading}
                                             isForecastLoading={isForecastLoading}
                                             day={day}
                                             width={width}
@@ -113,7 +94,6 @@ const ForecastDayDisplay = (props: any) => {
         setTempMin(min);
         setThisTempRange(prev => ((day.main.temp_max - day.main.temp_min) / (max - min)));
         if (tempRangeBar.current && tempIndicator.current) {
-            // console.log('min', min, 'max', max, 'avg', avg);
             let indicatorOffset = (avg.toFixed(4) * tempRangeBar.current?.offsetWidth);
 
             if (indicatorOffset + tempIndicator.current?.offsetWidth > tempRangeBar.current?.offsetWidth) {

@@ -1,21 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { useWeatherContext } from '@/Context/WeatherDataProvider';
+import { useForecastDataContext } from '@/Context/ForecastDataProvider';
 export default function HourlyForecast() {
-    const { isACityFound, isForecastLoading, hourlyForecastData } = useWeatherContext();
+    const { hourly: hourlyForecastData, loading: isForecastLoading } = useForecastDataContext();
     const chartDisplayAreaRef = useRef<HTMLDivElement>(null);
-    const [data, setData] = useState<number[]>([]);
     const [isChartReady, setIsChartReady] = useState<boolean>(false);
 
     const [chartWidth, setChartWidth] = useState<number | null>(null);
     const [chartHeight, setChartHeight] = useState<number | null>(null);
-    useEffect(() => {
-        if (hourlyForecastData) {
+
+    const data = useMemo(() => {
+        if (hourlyForecastData && !isForecastLoading) {
             if (hourlyForecastData.list) {
-                setData(hourlyForecastData.list.map((hour: any) => hour.main.temp));
+                return hourlyForecastData.list.map((hour: any) => hour.main.temp);
             }
         }
-    }, [hourlyForecastData]);
+        return [];
+    }, [hourlyForecastData, isForecastLoading]);
 
     useEffect(() => {
         // This useEffect waits for the component to fully render, then grabs the ref's dimensions
@@ -24,18 +25,17 @@ export default function HourlyForecast() {
                 setChartWidth(chartDisplayAreaRef.current.scrollWidth || 600);
                 setChartHeight((chartDisplayAreaRef.current.offsetHeight * .76) || 400);
             }
-
         };
 
         // Initially set chart dimensions when the component mounts
-        if (chartDisplayAreaRef.current && !isForecastLoading && isACityFound) {
+        if (chartDisplayAreaRef.current && !isForecastLoading) {
             handleResize();
             setIsChartReady(prev => true); // Once we know the area size, set the chart ready
         }
-    }, [chartDisplayAreaRef.current, isACityFound, isForecastLoading]);
+    }, [chartDisplayAreaRef.current, isForecastLoading]);
 
     return (
-        <div className={'relative ' + (!isACityFound && isForecastLoading && 'hidden')}>
+        <div className={'relative ' + (isForecastLoading && 'hidden')}>
             <motion.div className="bg-blue-500/80 backdrop-blur-sm rounded-xl w-full h-fit p-2 text-white mb-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -53,18 +53,24 @@ export default function HourlyForecast() {
                         <div className='z-10 w-full flex items-center justify-evenly ' ref={chartDisplayAreaRef}>
                             {
                                 hourlyForecastData?.list &&
-                                hourlyForecastData?.list.map((hour: any, index: number) =>
-                                (
-                                    <EachHour key={index} hour={hour} index={index} />
-                                )
+                                hourlyForecastData?.list.map(
+                                    (hour: any, index: number) =>
+                                    (
+                                        <EachHour key={index} hour={hour} index={index} />
+                                    )
                                 )
                             }
                         </div>
                     }
                     {
-                        !isForecastLoading && isChartReady && chartWidth && chartHeight &&
+                        !isForecastLoading && isChartReady &&
+                        chartWidth && chartHeight &&
                         <div className='absolute left-0 right-0 bottom-2 -z-10'>
-                            <LineChart data={data} width={chartWidth} height={chartHeight} />
+                            <LineChart
+                                data={data}
+                                width={chartWidth}
+                                height={chartHeight}
+                            />
                         </div>
                     }
                 </div>
@@ -116,22 +122,22 @@ const LineChart = ({ data, width, height }: {
         // Scale data to fit the width and height
 
         // Create the line path for the chart and add a circle at each data point
-        setLinePath(prev => data.map((value, index) =>
-            index === 0
-                ? `M ${xScale(value, index)} ${yScale(value, minDataValue, maxDataValue)}`
-                : `L ${xScale(value, index)} ${yScale(value, minDataValue, maxDataValue)}`
+        setLinePath(prev => data.map(
+            (value: number, index: number) =>
+                index === 0
+                    ? `M ${xScale(value, index)} ${yScale(value, minDataValue, maxDataValue)}`
+                    : `L ${xScale(value, index)} ${yScale(value, minDataValue, maxDataValue)}`
         ).join(' '))
 
     }, [data, width, height]);
 
     return (
-
         <svg className='opacity-80' width={width} height={height}>
             {/* Draw the line */}
             <path d={linePath} stroke="#ddd" fill="none" strokeWidth="2" />
 
             {/* Draw the dots */}
-            {data.map((value, index) => (
+            {data.map((value: number, index: number) => (
                 <circle
                     key={index}
                     cx={xScale(value, index)}

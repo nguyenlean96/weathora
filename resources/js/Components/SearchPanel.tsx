@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import { useDebounce } from "@/Hooks";
+import { useDebouncedCallback } from '@mantine/hooks';
 import { useCity } from "@/Context/CityProvider";
 import { usePage } from "@inertiajs/react";
 
@@ -18,10 +18,7 @@ export default function SearchPanel(_props: any) {
         fetchData,
     } = useCity();
 
-    const cities = useMemo(() => {
-        //     if (isLoading) return [];
-        return citiesData;
-    }, [isLoading, citiesData]);
+    const cities = useMemo(() => citiesData, [isLoading, citiesData]);
 
     const loadMoreRef = useRef(null);
     const [searchBox, setSearchBox] = useState<string>(city);

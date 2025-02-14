@@ -32,6 +32,7 @@
     "dependencies": {
         "@mantine/core": "^7.16.3",
         "@mantine/hooks": "^7.16.3",
-        "motion": "^12.4.1"
+        "motion": "^12.4.1",
+        "react-snowfall": "^2.2.0"
     }
 }

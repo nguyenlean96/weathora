@@ -1,5 +1,5 @@
 import DebugPanel from '@/Components/debug-panel';
-import Main from '@/Components/main';
+import Main from '@/Components/Main';
 import SearchPanel from '@/Components/SearchPanel';
 import CurrentWeatherProvider from '@/Context/CurrentWeatherProvider';
 import ForecastDataProvider from '@/Context/ForecastDataProvider';

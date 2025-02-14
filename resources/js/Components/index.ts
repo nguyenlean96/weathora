@@ -1,4 +1,4 @@
-import Main from './main';
+import Main from './Main';
 import SearchPanel from './SearchPanel';
 import CurrentWeather from './current-weather';
 import { HourlyForecast, DailyForecast } from './weather-forecast';

@@ -3,13 +3,12 @@ import { motion } from "motion/react";
 import { WindSpeedPanel, CurrentWeather, DailyForecast, HourlyForecast, Effects, SunRise, SunSet } from "@/Components";
 import { useViewportSize } from '@mantine/hooks';
 import { useCurrentWeather } from "@/Context/CurrentWeatherProvider";
+import WeatherEffectLayer from "./WeatherEffectLayer";
 
 export default function Main(_props: any) {
     const { width, height } = useViewportSize();
     const {
         isFogEffectForcedOn,
-        isSunFlareEffectForcedOn,
-        isRainEffectForcedOn,
     } = useWeatherContext();
     const { data: currentWeather }
         : {
@@ -24,61 +23,7 @@ export default function Main(_props: any) {
         = useCurrentWeather();
 
     return currentWeather && (
-        <div className="relative w-full h-full">
-            {
-                currentWeather
-                && (
-                    String(currentWeather?.weather[0].icon).startsWith('01d')
-                    || String(currentWeather?.weather[0].icon).startsWith('02d')
-                    || String(currentWeather?.weather[0].icon).startsWith('03d')
-                    || String(currentWeather?.weather[0].icon).startsWith('04d')
-                ) && (
-                    <div className="z-10 absolute top-0 left-0 w-full h-screen"
-                        style={{
-                            boxShadow: `inset 0 0 50px #0ff,
-                            inset 20px 0 80px #0ff,
-                            inset 20px 0 300px rgba(255 255 255 / 0.4),
-                            inset -20px 0 80px #fff,
-                            inset -20px 0 300px #fff
-                            `
-                        }}
-                    ></div>
-                )
-            }
-            {
-                currentWeather
-                && (
-                    String(currentWeather?.weather[0].icon).startsWith('01n')
-                    || String(currentWeather?.weather[0].icon).startsWith('02n')
-                    || String(currentWeather?.weather[0].icon).startsWith('03n')
-                ) && (
-                    <div className="z-10 absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-slate-400 via-slate-300/50 to-gray-50/0"></div>
-                )
-            }
-            {
-                currentWeather && (String(currentWeather?.weather[0].icon).startsWith('04n')) && (
-                    <div className="z-10 absolute top-0 left-0 right-0 w-full h-[32dvh] bg-gradient-to-b from-gray-200 via-gray-50/50 to-gray-50/0"></div>
-                )
-            }
-            {
-                currentWeather &&
-                (
-                    String(currentWeather?.weather[0].icon).startsWith('09')
-                    || String(currentWeather?.weather[0].icon).startsWith('10')
-                    || String(currentWeather?.weather[0].icon).startsWith('11')
-                    || isRainEffectForcedOn
-                ) && (
-                    <div className="z-10 absolute top-0 left-0 w-full h-screen"
-                        style={{
-                            boxShadow: `inset 0 -50px 100px rgba(100, 100, 100, 0.7),
-                            inset 0 -100px 350px rgba(80, 80, 80, 0.8),
-                            inset 0 -150px 500px rgba(60, 60, 60, 0.4),
-                            inset 0 -600px 100px rgba(50, 50, 50, 0.5)
-                            `
-                        }}
-                    ></div>
-                )
-            }
+        <div className="relative w-full h-full bg-blue-200">
             {
                 // !isCityBackgroundLoading && cityBackgroundUrl
                 false
@@ -91,37 +36,11 @@ export default function Main(_props: any) {
                     </>
                 )
             }
-            {
-                currentWeather &&
-                (
-                    String(currentWeather?.weather[0].icon).includes('01d')
-                    || String(currentWeather?.weather[0].icon).includes('10d')
-                    || isSunFlareEffectForcedOn
-                )
-                && (
-                    <Effects.SunFlareEffect />
-                )
-            }
-            {
-                currentWeather &&
-                (
-                    String(currentWeather?.weather[0].icon).startsWith('09')
-                    || String(currentWeather?.weather[0].icon).startsWith('10')
-                    || String(currentWeather?.weather[0].icon).startsWith('11')
-                    || isRainEffectForcedOn
-                ) && (
-                    <Effects.RainEffect />
-                )
-            }
-            {
-                currentWeather && (String(currentWeather?.weather[0].icon).includes('50') || isFogEffectForcedOn)
-                &&
-                <Effects.FogBackgroundEffect />
-            }
+            <WeatherEffectLayer />
             <div className={"absolute top-0 left-0 right-0 w-full h-screen overflow-y-scroll z-20 p-2 px-10 pt-16 " + ((String(currentWeather?.weather[0].icon).includes('50') || isFogEffectForcedOn) ? ' pb-64 lg:pb-[30dvh]' : '')}>
                 <CurrentWeather />
 
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-center relative">
                     {
                         currentWeather?.rain && currentWeather?.rain['1h'] && (
                             // Display warning for possible rain

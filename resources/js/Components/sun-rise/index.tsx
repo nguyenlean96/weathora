@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 import { useEffect, useRef, useState } from 'react';
-=======
-import { useMemo, useRef } from 'react';
->>>>>>> 4aba730 (Fix timezone converter (#19))
 import { motion } from "motion/react";
 import { TheSun, TheMoon } from "@/Components/celestial";
 import { useCurrentWeather } from '@/Context/CurrentWeatherProvider';
 import { getTime } from '@/Utils';
-<<<<<<< HEAD
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRotateRight, faGear, faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -18,10 +13,7 @@ export default function SunRise() {
      */
     const [sliderValue, setSliderValue] = useState<number>(0);
     const [sunPosition, setSunPosition] = useState<number>(0);
-=======
 
-export default function SunRise() {
->>>>>>> 4aba730 (Fix timezone converter (#19))
     const {
         data: currentWeather,
         percentFromSunrise,
@@ -34,7 +26,6 @@ export default function SunRise() {
         }
         = useCurrentWeather();
 
-<<<<<<< HEAD
     const resetSunPosition = () => {
         setSliderValue(100 - ((51 - (percentFromSunrise * (51 - 7))) % 100));
         setSunPosition((51 - (percentFromSunrise * (51 - 7))) % 100);
@@ -46,10 +37,6 @@ export default function SunRise() {
         return () => {
             setSunPosition(0);
         }
-=======
-    const scaledPercentFromSunrise = useMemo(() => {
-        return (51 - (percentFromSunrise * (51 - 7))) % 100;
->>>>>>> 4aba730 (Fix timezone converter (#19))
     }, [percentFromSunrise]);
 
     const sunriseDisplayingAreaRef = useRef<HTMLDivElement>(null);
@@ -62,7 +49,6 @@ export default function SunRise() {
                 currentWeather?.sys?.sunrise ? (
                     <div className="w-full h-full overflow-hidden">
                         <div className="relative w-full h-full px-2">
-<<<<<<< HEAD
                             <div className='absolute top-1.5 right-3 z-50'>
                                 <div className='flex items-center space-x-2'>
                                     {
@@ -115,12 +101,6 @@ export default function SunRise() {
                                 />
                             </div>
                             <div className="absolute left-0 top-[55%] w-full border-t-2 z-0 bg-gradient-to-b from-slate-600/20 via-slate-800/40 to-gray-800/80 h-20"></div>
-=======
-                            <div className="absolute left-0 top-0 p-1">
-                                <div className="text-2xl text-end lg:text-start"><span className="font-semibold text-white/60">Sun rises</span> <span className="text-2xl text-white/80 ">{getTime(sunriseDateTime)}</span></div>
-                            </div>
-                            <div className="absolute left-0 top-2/3 w-full border-t-2 z-0 bg-gradient-to-b from-slate-600/20 via-slate-800/60 to-gray-900 h-16"></div>
->>>>>>> 4aba730 (Fix timezone converter (#19))
                             <div
                                 style={{
                                     transform: `translateX(${(sunriseDisplayingAreaRef.current && sunriseAnimationDivRef.current) ?
@@ -144,18 +124,10 @@ export default function SunRise() {
                                         offsetDistance: '100%',
                                     }}
                                     animate={{
-<<<<<<< HEAD
                                         offsetDistance: `${sunPosition}%`,
                                     }}
                                     transition={{
                                         duration: 1,
-=======
-                                        offsetDistance: `${scaledPercentFromSunrise}%`,
-                                    }}
-                                    transition={{
-                                        delay: 1,
-                                        duration: 2,
->>>>>>> 4aba730 (Fix timezone converter (#19))
                                     }}
                                 >
                                     {
@@ -164,13 +136,8 @@ export default function SunRise() {
                                          *  or less than 6% of the way to sunrise,
                                          */
                                         (
-<<<<<<< HEAD
                                             (sunPosition < 51 && sunPosition > 7)
                                             || sunPosition > 96
-=======
-                                            (scaledPercentFromSunrise > 50 && scaledPercentFromSunrise < 93)
-                                            || scaledPercentFromSunrise < 6
->>>>>>> 4aba730 (Fix timezone converter (#19))
                                         )
                                             ? <TheSun />
                                             : <TheMoon />

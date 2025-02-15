@@ -1,6 +1,6 @@
 import { useWeatherContext } from "@/Context/WeatherDataProvider";
 import { motion } from "motion/react";
-import { WindSpeedPanel, CurrentWeather, DailyForecast, HourlyForecast, Effects, SunRise, SunSet } from "@/Components";
+import { WindSpeedPanel, CurrentWeather, DailyForecast, HourlyForecast } from "@/Components";
 import { useViewportSize } from '@mantine/hooks';
 import { useCurrentWeather } from "@/Context/CurrentWeatherProvider";
 import WeatherEffectLayer from "./WeatherEffectLayer";

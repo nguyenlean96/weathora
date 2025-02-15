@@ -90,7 +90,7 @@ export default function CurrentWeatherProvider({ children }: PropsWithChildren) 
         return new Date(sunsetUTC + (timezone * 1000));
     }, [data, loading]);
 
-    const percentFromSunrise = useMemo(() => {
+    const lightCycle = useMemo(() => {
         if (loading) {
             return 0;
         }
@@ -138,7 +138,7 @@ export default function CurrentWeatherProvider({ children }: PropsWithChildren) 
             localTime,
             sunriseDateTime,
             sunsetDateTime,
-            percentFromSunrise,
+            lightCycle,
             fetcher
         }}>
             {children}

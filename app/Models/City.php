@@ -53,6 +53,7 @@ class City extends Model
     ];
 
     protected $casts = [
+        'coord' => 'array',
         'lat' => 'decimal:10',
         'lon' => 'decimal:11',
     ];

@@ -20,9 +20,10 @@ return new class extends Migration
             });
 
             City::all()->each(function ($city) {
+                $coord = json_decode($city->coord, true);
                 $city->update([
-                    'lon' => $city->coord['lon'],
-                    'lat' => $city->coord['lat'],
+                    'lon' => $coord['lon'],
+                    'lat' => $coord['lat'],
                 ]);
             });
 

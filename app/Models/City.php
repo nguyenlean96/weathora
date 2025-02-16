@@ -15,6 +15,7 @@ class City extends Model
 
     // Hide the created_at and updated_at columns
     public $hidden = [
+        'coord',
         'created_at',
         'updated_at',
     ];
@@ -53,7 +54,6 @@ class City extends Model
     ];
 
     protected $casts = [
-        'coord' => 'array',
         'lat' => 'decimal:10',
         'lon' => 'decimal:11',
     ];

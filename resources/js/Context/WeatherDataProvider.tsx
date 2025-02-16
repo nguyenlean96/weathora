@@ -3,10 +3,12 @@ import {
     createContext,
     useContext,
     useReducer,
+    useMemo,
     type PropsWithChildren,
 } from 'react';
 
 export const WeatherContext = createContext<any>({
+    cityWeather: '',
     location: {
         city: null,
         lat: null,
@@ -78,10 +80,18 @@ export default function WeatherProvider({ children }: PropsWithChildren) {
         dispatchLocationResolver({ type: 'SET_LOCATION', lat, lon });
     }
 
+    const cityWeather = useMemo(() => {
+        if (location.city) {
+            return location.city;
+        }
+        return '';
+    }, [location.city]);
+
     return (
         <WeatherContext.Provider
             value={{
                 location,
+                cityWeather,
                 fetchWeatherData,
                 isFogEffectForcedOn,
                 isSunFlareEffectForcedOn,

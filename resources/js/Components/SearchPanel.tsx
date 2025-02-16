@@ -31,7 +31,7 @@ export default function SearchPanel(_props: any) {
         (city: string) => {
             setCity((_: string) => city);
         },
-        850 // debounce time 850ms - natural typing speed
+        700 // debounce time 700 - 850ms - natural typing speed
     );
 
     const observer = new IntersectionObserver((entries) => {

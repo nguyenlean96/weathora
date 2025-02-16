@@ -95,7 +95,7 @@ export default function SearchPanel(_props: any) {
                                             }
                                             onClick={() => {
                                                 setTypingCity(city.name);
-                                                fetchWeatherData(city.name);
+                                                fetchWeatherData({ city: city.name, lat: city.lat, lon: city.lon });
                                             }}
                                         >
                                             <div className="">

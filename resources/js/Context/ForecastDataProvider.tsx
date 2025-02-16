@@ -21,8 +21,8 @@ export function useForecastDataContext() {
 
 
 export default function ForecastDataProvider({ children }: PropsWithChildren) {
-    const { cityWeather } = useWeatherContext();
-    const { loading, data } = useForecastData(cityWeather);
+    const { location } = useWeatherContext();
+    const { loading, data } = useForecastData(location);
 
     /**
      *

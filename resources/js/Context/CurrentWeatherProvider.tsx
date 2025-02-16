@@ -19,8 +19,8 @@ export function useCurrentWeather() {
 }
 
 export default function CurrentWeatherProvider({ children }: PropsWithChildren) {
-    const { cityWeather } = useWeatherContext();
-    const { loading, data, fetcher } = useWeatherData(cityWeather);
+    const { location } = useWeatherContext();
+    const { loading, data, fetcher } = useWeatherData(location);
 
     const localTime = useMemo(() => {
         if (loading) {

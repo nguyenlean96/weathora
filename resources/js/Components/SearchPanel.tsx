@@ -27,7 +27,7 @@ export default function SearchPanel(_props: any) {
     const [typingCity, setTypingCity] = useState<string>('');
     const [inFocus, setInFocus] = useState<boolean>(false);
 
-    const fetchCityWeatherData = useDebouncedCallback(
+    const fetchCityData = useDebouncedCallback(
         (city: string) => {
             setCity((_: string) => city);
         },
@@ -68,7 +68,7 @@ export default function SearchPanel(_props: any) {
                             onChange={(e) => {
                                 e.preventDefault();
                                 setTypingCity(e.target.value);
-                                fetchCityWeatherData(e.target.value);
+                                fetchCityData(e.target.value);
                             }}
                             onFocus={() => setInFocus(true)}
                             onBlur={() => setInFocus(false)}

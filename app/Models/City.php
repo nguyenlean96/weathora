@@ -26,6 +26,8 @@ class City extends Model
         'country_code',
         'lat',
         'lon',
+        'timezone_offset',
+        'population',
     ];
 
     protected $filterable = [
@@ -35,6 +37,8 @@ class City extends Model
         'country_code',
         'lat',
         'lon',
+        'timezone_offset',
+        'population',
     ];
 
     protected $orderable = [
@@ -44,6 +48,8 @@ class City extends Model
         'country_code',
         'lat',
         'lon',
+        'timezone_offset',
+        'population',
     ];
 
     protected $casts = [

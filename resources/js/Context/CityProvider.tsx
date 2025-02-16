@@ -45,7 +45,6 @@ export function CityProvider({ children }: PropsWithChildren) {
         isLoading,
         data,
         loadMoreCities,
-        fetchData,
         pendingReset,
         reset,
     } = useGeography(cityUrl);

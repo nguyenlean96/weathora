@@ -16,15 +16,15 @@ class OpenWeatherClient
      */
     private static function getData(
         string $service = 'weather',
-        string $city,
+        float $lat = null,
+        float $lon = null,
         array $params = ['units' => 'metric']
     ): ResponseInterface {
 
         $baseUrl = config('services.open_weather.api') . '/' . $service . '?appid=' . config('services.open_weather.key');
 
-        // check if the city is empty
-        if (empty($city)) {
-            throw new \InvalidArgumentException('Location is required');
+        if (empty($lat) || empty($lon)) {
+            throw new \InvalidArgumentException('Invalid location');
         }
         try {
 
@@ -32,7 +32,7 @@ class OpenWeatherClient
                 $baseUrl .= '&' . $key . '=' . $value;
             }
 
-            $baseUrl .= '&q=' . $city;
+            $baseUrl .= '&lat=' . $lat . '&lon=' . $lon;
             $client = new Client();
             $response = $client->get($baseUrl);
 
@@ -49,10 +49,20 @@ class OpenWeatherClient
      * @return ResponseInterface
      */
     public static function getWeatherData(
-        string $city,
+        float $lat = null,
+        float $lon = null,
         array $params = ['units' => 'metric']
     ): ResponseInterface {
-        return self::getData(service: 'weather', city: $city, params: $params);
+        if (empty($lat) || empty($lon)) {
+            throw new \InvalidArgumentException('Invalid location');
+        }
+
+        return self::getData(
+            service: 'weather',
+            lat: $lat,
+            lon: $lon,
+            params: $params
+        );
     }
 
     /**
@@ -61,9 +71,18 @@ class OpenWeatherClient
      * @return ResponseInterface
      */
     public static function getForecastData(
-        string $city,
+        float $lat = null,
+        float $lon = null,
         array $params = ['units' => 'metric']
     ): ResponseInterface {
-        return self::getData(service: 'forecast', city: $city, params: $params);
+        if (empty($lat) || empty($lon)) {
+            throw new \InvalidArgumentException('Invalid location');
+        }
+        return self::getData(
+            service: 'forecast',
+            lat: $lat,
+            lon: $lon,
+            params: $params
+        );
     }
 }

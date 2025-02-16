@@ -11,7 +11,13 @@ declare global {
     /* eslint-disable no-var */
     var route: typeof ziggyRoute;
 
-    interface City { name: string; state: string | null; country: string };
+    interface City {
+        name: string;
+        state: string | null;
+        country: string;
+        lat: number;
+        lon: number;
+    };
     interface IForecastDateTime {
         dt: number;
         dt_txt: string;

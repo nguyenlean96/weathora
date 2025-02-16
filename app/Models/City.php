@@ -24,7 +24,10 @@ class City extends Model
         'state',
         'country',
         'country_code',
-        'coord',
+        'lat',
+        'lon',
+        'timezone_offset',
+        'population',
     ];
 
     protected $filterable = [
@@ -32,6 +35,10 @@ class City extends Model
         'state',
         'country',
         'country_code',
+        'lat',
+        'lon',
+        'timezone_offset',
+        'population',
     ];
 
     protected $orderable = [
@@ -39,10 +46,15 @@ class City extends Model
         'state',
         'country',
         'country_code',
+        'lat',
+        'lon',
+        'timezone_offset',
+        'population',
     ];
 
     protected $casts = [
-        'coord' => 'array',
+        'lat' => 'decimal:10',
+        'lon' => 'decimal:11',
     ];
 
     public function weatherReports(): HasMany

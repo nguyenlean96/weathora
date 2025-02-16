@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Support\OpenWeatherClient;
+use App\Models\City;
 use App\Trait\ApiResponder;
 use Illuminate\Http\JsonResponse;
+use App\Support\OpenWeatherClient;
+use App\Http\Controllers\Controller;
 
 class OpenWeatherController extends Controller
 {
@@ -14,19 +15,50 @@ class OpenWeatherController extends Controller
     public function current(): JsonResponse
     {
         try {
-            if (!request()->has('location')) {
-                throw new \Exception('Location is required');
+            /**
+             * Deprecated
+             */
+            // if (!request()->has('location')) {
+            //     throw new \Exception('Location is required');
+            // }
+            if (!request()->has('lat') || !request()->has('lon')) {
+                throw new \Exception('Invlaid location');
             }
 
             $validated = request()->validate([
-                'location' => 'required|string',
+                // 'location' => 'required|string', # Deprecated got replaced by lat and lon
+                'lat' => 'required|numeric',
+                'lon' => 'required|numeric',
                 'units' => 'string|in:metric,imperial|nullable',
             ]);
 
-            $response = OpenWeatherClient::getWeatherData($validated['location']);
+            /**
+             *  Lat and lon are stored under column coord in the cities table
+             *
+             *  Check whether the lat and lon are in the coord column with a
+             *  tolerance of 0.1 (10km)
+             */
+            $newLocation = ! City::where('lat', '>=', $validated['lat'] - 0.1)
+                ->where('lat', '<=', $validated['lat'] + 0.1)
+                ->where('lon', '>=', $validated['lon'] - 0.1)
+                ->where('lon', '<=', $validated['lon'] + 0.1)
+                ->exists();
+
+            // return $this->success($results);
+            $response = OpenWeatherClient::getWeatherData(lat: $validated['lat'], lon: $validated['lon']);
 
             if ($response->getStatusCode() === 200) {
-                return $this->success(json_decode($response->getBody()->getContents()));
+                $resData = json_decode($response->getBody()->getContents());
+                if ($newLocation) {
+                    // Get current city from $resData['name']
+                    City::updateOrCreate([
+                        'name' => $resData->name,
+                        'lat' => $resData->coord->lat,
+                        'lon' => $resData->coord->lon,
+                    ]);
+                }
+                unset($resData->coord);
+                return $this->success($resData);
             } else {
                 return $this->error('Failed to fetch weather');
             }
@@ -38,20 +70,60 @@ class OpenWeatherController extends Controller
     public function forecast(): JsonResponse
     {
         try {
-            if (!request()->has('location')) {
-                throw new \Exception('Location is required');
+            /**
+             * Deprecated
+             */
+            // if (!request()->has('location')) {
+            //     throw new \Exception('Location is required');
+            // }
+            if (!request()->has('lat') || !request()->has('lon')) {
+                throw new \Exception('Invlaid location');
             }
 
             $validated = request()->validate([
-                'location' => 'required|string',
+                // 'location' => 'required|string', # Deprecated got replaced by lat and lon
+                'lat' => 'required|numeric',
+                'lon' => 'required|numeric',
                 'units' => 'string|in:metric,imperial|nullable',
             ]);
 
+            /**
+             *  Lat and lon are stored under column coord in the cities table
+             *
+             *  Check whether the lat and lon are in the coord column with a
+             *  tolerance of 0.1 (10km)
+             */
+            $newLocation = ! City::where('lat', '>=', $validated['lat'] - 0.1)
+                ->where('lat', '<=', $validated['lat'] + 0.1)
+                ->where('lon', '>=', $validated['lon'] - 0.1)
+                ->where('lon', '<=', $validated['lon'] + 0.1)
+                ->exists();
 
-            $response = OpenWeatherClient::getForecastData($validated['location']);
+            $response = OpenWeatherClient::getForecastData(lat: $validated['lat'], lon: $validated['lon']);
 
+            /**
+             *  Since the forecast response structure is different,
+             *  city data is in $res['city']
+             */
             if ($response->getStatusCode() === 200) {
-                return $this->success(json_decode($response->getBody()->getContents()));
+                $resData = json_decode($response->getBody()->getContents());
+                if ($newLocation) {
+                    // Get current city from $resData['name']
+                    City::updateOrCreate(
+                        [
+                            'name' => $resData->city->name,
+                            'country_code' => $resData->city->country,
+                            'lat' => $resData->city->coord->lat,
+                            'lon' => $resData->city->coord->lon,
+                        ],
+                        [
+                            'population' => $resData->city->population,
+                            'timezone_offset' => $resData->city->timezone,
+                        ]
+                    );
+                }
+                unset($resData->city->coord);
+                return $this->success($resData);
             } else {
                 return $this->error('Failed to fetch weather');
             }

@@ -27,11 +27,11 @@ export default function SearchPanel(_props: any) {
     const [typingCity, setTypingCity] = useState<string>('');
     const [inFocus, setInFocus] = useState<boolean>(false);
 
-    const fetchCityWeatherData = useDebouncedCallback(
+    const fetchCityData = useDebouncedCallback(
         (city: string) => {
             setCity((_: string) => city);
         },
-        850 // debounce time 850ms - natural typing speed
+        700 // debounce time 700 - 850ms - natural typing speed
     );
 
     const observer = new IntersectionObserver((entries) => {
@@ -68,7 +68,7 @@ export default function SearchPanel(_props: any) {
                             onChange={(e) => {
                                 e.preventDefault();
                                 setTypingCity(e.target.value);
-                                fetchCityWeatherData(e.target.value);
+                                fetchCityData(e.target.value);
                             }}
                             onFocus={() => setInFocus(true)}
                             onBlur={() => setInFocus(false)}
@@ -95,7 +95,7 @@ export default function SearchPanel(_props: any) {
                                             }
                                             onClick={() => {
                                                 setTypingCity(city.name);
-                                                fetchWeatherData(city.name);
+                                                fetchWeatherData({ city: city.name, lat: city.lat, lon: city.lon });
                                             }}
                                         >
                                             <div className="">

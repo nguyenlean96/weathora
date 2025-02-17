@@ -23,8 +23,6 @@ export function useWeatherContext() {
     return context;
 };
 
-
-
 export default function WeatherProvider({ children }: PropsWithChildren) {
     const {location } = useCity();
 

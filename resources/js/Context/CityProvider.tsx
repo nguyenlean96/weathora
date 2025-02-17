@@ -84,6 +84,10 @@ export function CityProvider({ children }: PropsWithChildren) {
         lon: null,
     });
 
+    const { timezone_offset }: {
+        timezone_offset: number;
+    } = useWeatherData(location);
+
     const fetchWeatherData = ({ city, lat, lon }: { city: string; lat: number; lon: number }) => {
         dispatchLocationResolver({ type: 'SET_LOCATION', city, lat, lon });
     }
@@ -117,6 +121,7 @@ export function CityProvider({ children }: PropsWithChildren) {
     return (
         <CityContext.Provider value={{
             location,
+            location_timezone_offset: timezone_offset,
             fetchWeatherData,
             currentPage,
             totalPages,

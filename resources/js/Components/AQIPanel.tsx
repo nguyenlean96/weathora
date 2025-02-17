@@ -1,12 +1,10 @@
+import { useWeatherContext } from "@/Context/WeatherDataProvider";
 import { useAirQuality } from "@/Hooks/useAirQuality"
 import { useMemo } from "react";
 
 export default function AQIPanel() {
-    const { loading, data: airQualityData, error } = useAirQuality({
-        city: 'London',
-        lat: 51.5074,
-        lon: 0.1278,
-    });
+    const { location } = useWeatherContext();
+    const { loading, data: airQualityData, error } = useAirQuality(location);
 
     const aqi = useMemo(() => {
         if (!airQualityData) return 1;
@@ -40,9 +38,8 @@ export default function AQIPanel() {
             </div>
             <div className="flex-1 overflow-hiddenrelative">
                 <div className="w-full h-full flex flex-col justify-center p-2">
-
-                    <div className="text-5xl text-gray-100 leading-none mb-2">{aqi}</div>
-                    <div className="text-xl text-gray-200">{qualitativeAQI}</div>
+                    <div className="text-5xl text-gray-100 leading-none">{aqi}</div>
+                    <div className="text-xl text-gray-200 mb-2">{qualitativeAQI}</div>
                     <div className="w-full">
                         <div className="w-full h-2.5 relative rounded-full border"
                             style={{

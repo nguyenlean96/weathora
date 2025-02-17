@@ -44,8 +44,10 @@ export default function HourlyForecast() {
                     duration: 0.5,
                 }}
             >
-                <div className="w-full p-1 border-b">
-                    <span className="text-white">{String(`Hourly forecast`)}</span>
+                <div className="border-b px-1 w-full">
+                    <div className="w-full">
+                        <h4 className="text-gray-100 leading-5 mb-1">Hourly forecast</h4>
+                    </div>
                 </div>
                 <div className='relative overflow-x-auto overflow-y-hidden pb-3 z-10'>
                     {

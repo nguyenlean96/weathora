@@ -34,6 +34,11 @@ Route::prefix('api')
                             [OpenWeatherController::class, 'forecast']
                         )
                             ->name('forecast');
+
+                        Route::get(
+                            'air-pollution',
+                            [OpenWeatherController::class, 'airPollution']
+                        )->name('air-pollution');
                     });
 
                 Route::prefix('unsplash')

@@ -12,21 +12,20 @@ class OpenWeatherController extends Controller
 {
     use ApiResponder;
 
+    /**
+     *  [SCHEDULED TO BE DEPRECATED]
+     *  Get the current weather data
+     *
+     *  @return JsonResponse
+     */
     public function current(): JsonResponse
     {
         try {
-            /**
-             * Deprecated
-             */
-            // if (!request()->has('location')) {
-            //     throw new \Exception('Location is required');
-            // }
             if (!request()->has('lat') || !request()->has('lon')) {
                 throw new \Exception('Invlaid location');
             }
 
             $validated = request()->validate([
-                // 'location' => 'required|string', # Deprecated got replaced by lat and lon
                 'lat' => 'required|numeric',
                 'lon' => 'required|numeric',
                 'units' => 'string|in:metric,imperial|nullable',
@@ -67,21 +66,20 @@ class OpenWeatherController extends Controller
         }
     }
 
+    /**
+     *  [SCHEDULED TO BE DEPRECATED]
+     *  Get the forecast weather data
+     *
+     *  @return JsonResponse
+     */
     public function forecast(): JsonResponse
     {
         try {
-            /**
-             * Deprecated
-             */
-            // if (!request()->has('location')) {
-            //     throw new \Exception('Location is required');
-            // }
             if (!request()->has('lat') || !request()->has('lon')) {
                 throw new \Exception('Invlaid location');
             }
 
             $validated = request()->validate([
-                // 'location' => 'required|string', # Deprecated got replaced by lat and lon
                 'lat' => 'required|numeric',
                 'lon' => 'required|numeric',
                 'units' => 'string|in:metric,imperial|nullable',

@@ -50,8 +50,8 @@ export default function DailyForecast({ width, height, props }: { width: number;
                         duration: 0.5,
                     }}
                 >
-                    <div className="w-full p-1 border-b">
-                        <span className="text-gray-50/80 font-semibold">{String(`Next 6-day forecast`)}</span>
+                    <div className="w-full px-1 border-b">
+                        <h4 className="text-gray-100 leading-5 mb-1">{String(`Next 6-day forecast`)}</h4>
                     </div>
                     <div className='w-full'>
                         {dailyForecastData?.list

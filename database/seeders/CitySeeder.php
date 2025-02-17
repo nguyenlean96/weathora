@@ -283,11 +283,14 @@ class CitySeeder extends Seeder
             $cities = include $c;
 
             $cityData = array_map(function ($city) use ($country_names) {
+                $coord = json_decode($city['coord'], true);
+
                 $record = [
                     'name' => $city['name'],
                     'country_code' => $city['country'],
                     'country' => $country_names[$city['country']],
-                    'coord' => $city['coord'],
+                    'lat' => $coord['lat'],
+                    'lon' => $coord['lon'],
                 ];
 
                 if (strlen($city['state']) > 0) {
@@ -314,8 +317,8 @@ class CitySeeder extends Seeder
                  */
                 City::upsert(
                     $city,
-                    ['name', 'state', 'country_code'], // Unique constraints
-                    ['country', 'coord'] // Columns to update if a match is found
+                    ['name', 'state', 'country_code', 'lat', 'lon'], // Unique constraints
+                    ['country'] // Columns to update if a match is found
                 );
             }
         }

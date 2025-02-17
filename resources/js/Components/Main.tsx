@@ -6,6 +6,7 @@ import { useCurrentWeather } from "@/Context/CurrentWeatherProvider";
 import WeatherEffectLayer from "./WeatherEffectLayer";
 import DailyLightCycle from "./DailyLightCycle";
 import TempPanel from "./TempPanel";
+import AQIPanel from "./AQIPanel";
 
 export default function Main(_props: any) {
     const { width, height } = useViewportSize();
@@ -97,11 +98,16 @@ export default function Main(_props: any) {
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                     <div>
                         <div className="grid grid-cols-5 gap-2 mb-3">
+                            <div className="col-span-5 h-[10rem]">
+                                <AQIPanel />
+                            </div>
                             {
                                 currentWeather
                                 &&
                                 <>
-                                    <TempPanel />
+                                    <div className="col-span-2 h-[10rem]">
+                                        <TempPanel />
+                                    </div>
                                     <div className="col-span-3 h-[10rem] flex">
                                         <DailyLightCycle />
                                     </div>

@@ -4,12 +4,12 @@ import { useCurrentWeather } from "@/Context/CurrentWeatherProvider";
 export default function TempPanel() {
     const { data: currentWeather } = useCurrentWeather();
     return (
-        <m.div className="col-span-2 bg-blue-500/80 backdrop-blur-sm rounded-xl w-full h-full p-2 py-4 text-white mb-3"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-        >
-            <div className='grid grid-cols-3 w-full h-full gap-3 p-2 px-4'>
+        <div className='grid grid-cols-3 w-full h-full gap-2'>
+            <m.div className="col-span-2 bg-blue-500/80 backdrop-blur-sm rounded-xl w-full h-[10rem] p-2 text-white"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+            >
                 <div className='flex flex-col justify-center w-full h-full col-span-2'>
                     {/* FEELS LIKE */}
                     <span className="text-sm">Feels like:</span>
@@ -19,7 +19,13 @@ export default function TempPanel() {
                         </h5>
                     </div>
                 </div>
-                <div className='grid grid-rows-2'>
+            </m.div>
+            <div className='grid grid-rows-2 gap-2 max-h-full h-[10rem]'>
+                <m.div className="bg-blue-500/80 backdrop-blur-sm rounded-xl w-full h-full p-2 text-white"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
                     {/* MAX TEMPERATURE */}
                     <div className="flex flex-col justify-center">
                         <div>
@@ -41,7 +47,12 @@ export default function TempPanel() {
                             &deg;
                         </div>
                     </div>
-
+                </m.div>
+                <m.div className="bg-blue-500/80 backdrop-blur-sm rounded-xl w-full h-full p-2 text-white"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
                     {/* MIN TEMPERATURE */}
                     <div className="flex flex-col justify-center">
                         <div>
@@ -63,8 +74,8 @@ export default function TempPanel() {
                             &deg;
                         </div>
                     </div>
-                </div>
+                </m.div>
             </div>
-        </m.div>
+        </div>
     )
 }

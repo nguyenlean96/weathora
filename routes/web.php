@@ -39,6 +39,11 @@ Route::prefix('api')
                             'air-pollution',
                             [OpenWeatherController::class, 'airPollution']
                         )->name('air-pollution');
+
+                        Route::get(
+                            'onecall',
+                            [OpenWeatherController::class, 'oneCall']
+                        )->name('onecall');
                     });
 
                 Route::prefix('unsplash')

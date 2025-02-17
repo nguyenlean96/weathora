@@ -2,7 +2,15 @@ import { motion as m } from 'motion/react';
 import { useCurrentWeather } from "@/Context/CurrentWeatherProvider";
 
 export default function TempPanel() {
-    const { data: currentWeather } = useCurrentWeather();
+    const {
+        data: currentWeather,
+        temp_min,
+        temp_max,
+    }: {
+        data: ICurrentWeather;
+        temp_min: number;
+        temp_max: number;
+    } = useCurrentWeather();
     return (
         <div className='grid grid-cols-3 w-full h-full gap-2'>
             <m.div className="col-span-2 bg-blue-500/80 backdrop-blur-sm rounded-xl w-full h-[10rem] p-2 px-3 text-white flex flex-col"
@@ -18,7 +26,7 @@ export default function TempPanel() {
                 {/* FEELS LIKE */}
                 <div className='flex flex-1 justify-center items-center w-full h-full'>
                     <h5 className="text-lg xl:text-5xl text-center text-gray-100 font-bold">
-                        {Math.round(currentWeather?.main?.feels_like)}&deg;
+                        {Math.round(currentWeather.feels_like)}&deg;
                     </h5>
                 </div>
             </m.div>
@@ -44,7 +52,7 @@ export default function TempPanel() {
                     </div>
                     {/* MAX TEMPERATURE */}
                     <div className="flex flex-col justify-center w-full text-center text-base xl:text-2xl">
-                        <span className="font-semibold">{Math.round(currentWeather?.main.temp_max)}&deg;</span>
+                        <span className="font-semibold">{temp_max.toFixed(0)}&deg;</span>
                     </div>
                 </m.div>
                 <m.div className="bg-blue-500/80 backdrop-blur-sm rounded-xl w-full h-full p-2 text-white"
@@ -68,7 +76,7 @@ export default function TempPanel() {
                     </div>
                     {/* MIN TEMPERATURE */}
                     <div className="flex flex-col justify-center w-full text-center text-base xl:text-2xl">
-                        <span className="font-semibold">{Math.round(currentWeather?.main.temp_min)}&deg;</span>
+                        <span className="font-semibold">{temp_min.toFixed(0)}&deg;</span>
                     </div>
                 </m.div>
             </div>

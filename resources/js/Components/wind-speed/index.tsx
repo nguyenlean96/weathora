@@ -6,7 +6,11 @@ export default function WindSpeedPanel({ width, height }: { width: number; heigh
     const containerRef = useRef<HTMLDivElement>(null);
     const informationSideRef = useRef<HTMLDivElement>(null);
     const windDirectionContainerRef = useRef<HTMLDivElement>(null);
-    const { data: currentWeather } = useCurrentWeather();
+    const {
+        data: currentWeather,
+    }: {
+        data: ICurrentWeather;
+    } = useCurrentWeather();
     const [wdcTranslateX, setWdcTranslateX] = useState<number>(0);
     useEffect(() => {
         // Check whether the wind direction container is out side of the container
@@ -42,7 +46,7 @@ export default function WindSpeedPanel({ width, height }: { width: number; heigh
                         transition={{ duration: 0.5 }}
                     >
                         <div>Wind</div>
-                        <div>{currentWeather?.wind?.speed ? String(`${(parseFloat(currentWeather?.wind?.speed) * 3.6).toFixed(1)} km/h`) : 'N/A'}</div>
+                        <div>{currentWeather.wind_speed ? String(`${(currentWeather.wind_speed * 3.6).toFixed(1)} km/h`) : 'N/A'}</div>
                     </motion.div>
                     <motion.div className="text-white flex items-center justify-between border-b border-gray-50 p-2.5"
                         initial={{ opacity: 0, y: 20 }}
@@ -50,7 +54,7 @@ export default function WindSpeedPanel({ width, height }: { width: number; heigh
                         transition={{ duration: 0.5 }}
                     >
                         <div>Gusts</div>
-                        <div>{currentWeather?.wind?.gust ? String(`${(parseFloat(currentWeather?.wind?.gust) * 3.6).toFixed(1)} km/h`) : 'N/A'}</div>
+                        <div>{currentWeather.wind_gust ? String(`${(currentWeather.wind_gust * 3.6).toFixed(1)} km/h`) : 'N/A'}</div>
                     </motion.div>
                     <motion.div className="text-white flex items-center justify-between p-2.5"
                         initial={{ opacity: 0, y: 20 }}
@@ -58,16 +62,16 @@ export default function WindSpeedPanel({ width, height }: { width: number; heigh
                         transition={{ duration: 0.5 }}
                     >
                         <div>Direction</div>
-                        <div>{currentWeather?.wind?.deg}&deg;
+                        <div>{currentWeather.wind_deg}&deg;
                             {
-                                currentWeather?.wind?.deg < 90 ? ' NE' :
-                                    currentWeather?.wind?.deg < 180 ? ' SE' :
-                                        currentWeather?.wind?.deg < 270 ? ' SW' :
-                                            currentWeather?.wind?.deg < 360 ? ' NW' :
-                                                currentWeather?.wind?.deg === 0 ? ' N' :
-                                                    currentWeather?.wind?.deg === 90 ? ' E' :
-                                                        currentWeather?.wind?.deg === 180 ? ' S' :
-                                                            currentWeather?.wind?.deg === 270 ? ' W' : ' N'
+                                currentWeather.wind_deg < 90 ? ' NE' :
+                                    currentWeather.wind_deg < 180 ? ' SE' :
+                                        currentWeather.wind_deg < 270 ? ' SW' :
+                                            currentWeather.wind_deg < 360 ? ' NW' :
+                                                currentWeather.wind_deg === 0 ? ' N' :
+                                                    currentWeather.wind_deg === 90 ? ' E' :
+                                                        currentWeather.wind_deg === 180 ? ' S' :
+                                                            currentWeather.wind_deg === 270 ? ' W' : ' N'
                             }
                         </div>
                     </motion.div>
@@ -99,7 +103,7 @@ export default function WindSpeedPanel({ width, height }: { width: number; heigh
                             ))
                         }
                         <div className="z-30 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[3rem] h-[3rem] rounded-full bg-blue-400 flex flex-col justify-center ring-1 ring-white/20">
-                            <p className="text-center text-white leading-none text-lg">{(parseFloat(currentWeather?.wind?.speed) * 3.6).toFixed(0)}</p>
+                            <p className="text-center text-white leading-none text-lg">{(currentWeather.wind_speed * 3.6).toFixed(0)}</p>
                             <p className="text-center text-white text-sm">km/h</p>
                         </div>
                         <div className="absolute top-0 right-0 w-full h-full z-20">
@@ -108,7 +112,7 @@ export default function WindSpeedPanel({ width, height }: { width: number; heigh
                                     transform: 'rotate(0deg)',
                                 }}
                                 whileInView={{
-                                    transform: `rotate(${currentWeather ? currentWeather?.wind?.deg : 0}deg)`,
+                                    transform: `rotate(${currentWeather ? currentWeather.wind_deg : 0}deg)`,
                                 }}
                             >
                                 <svg className="scale-75 -translate-y-2"

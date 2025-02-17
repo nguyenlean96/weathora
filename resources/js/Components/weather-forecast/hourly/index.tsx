@@ -1,8 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { useForecastDataContext } from '@/Context/ForecastDataProvider';
+import { useCity } from '@/Context/CityProvider';
+import { getTime } from '@/Utils';
 export default function HourlyForecast() {
-    const { hourly: hourlyForecastData, loading: isForecastLoading } = useForecastDataContext();
+    const {
+        hourly: hourlyForecastData,
+        loading: isForecastLoading
+    } = useForecastDataContext();
+    const { location_timezone_offset } = useCity();
+    useEffect(() => {
+        console.log('Hourly Forecast component timezone_offset', location_timezone_offset);
+    }, [location_timezone_offset]);
+
     const chartDisplayAreaRef = useRef<HTMLDivElement>(null);
     const [isChartReady, setIsChartReady] = useState<boolean>(false);
 
@@ -11,8 +21,8 @@ export default function HourlyForecast() {
 
     const data = useMemo(() => {
         if (hourlyForecastData && !isForecastLoading) {
-            if (hourlyForecastData.list) {
-                return hourlyForecastData.list.map((hour: any) => hour.main.temp);
+            if (hourlyForecastData) {
+                return hourlyForecastData.map((hour: any) => hour.temp);
             }
         }
         return [];
@@ -54,11 +64,14 @@ export default function HourlyForecast() {
                         hourlyForecastData &&
                         <div className='z-10 w-full flex items-center justify-evenly ' ref={chartDisplayAreaRef}>
                             {
-                                hourlyForecastData?.list &&
-                                hourlyForecastData?.list.map(
+                                hourlyForecastData &&
+                                hourlyForecastData.map(
                                     (hour: any, index: number) =>
                                     (
-                                        <EachHour key={index} hour={hour} index={index} />
+                                        <EachHour key={index}
+                                            hour={hour}
+                                            timezone_offset={location_timezone_offset}
+                                        />
                                     )
                                 )
                             }
@@ -81,21 +94,32 @@ export default function HourlyForecast() {
     )
 }
 
-const EachHour = ({ hour, index }: {
-    hour: any;
-    index: number;
+const EachHour = ({
+    hour,
+    timezone_offset,
+}: {
+    hour: IHourlyForecast;
+    timezone_offset: number;
 }): JSX.Element => {
     const hourTileRef = useRef<HTMLDivElement>(null);
+
+    function localTimeFromUTC(utc: number, offset: number): string {
+        const utcData = new Date(utc * 1000);
+        const utcDate = utcData.getTime() + (utcData.getTimezoneOffset() * 60000);
+        return getTime(new Date(utcDate + (offset * 1000)));
+    }
     return (
         <div className='min-w-[5rem] p-1 py-2'
             ref={hourTileRef}
         >
             <div className='flex flex-col items-center justify-center text-white bg-white/5 rounded-lg'>
-                <div className='text-sm'>{hour.dt_txt.split(' ')[1].slice(0, 5)}</div>
+                <div className='text-sm'>
+                    {localTimeFromUTC(hour.dt, timezone_offset)}
+                </div>
                 <div className='flex items-center justify-center mb-10'>
                     <img src={`http://openweathermap.org/img/wn/${hour.weather[0].icon}.png`} alt={hour.weather[0].description} className='w-14 h-14 opacity-90' />
                 </div>
-                <div>{Math.round(hour.main.temp).toFixed(0)}&deg;</div>
+                <div>{Math.round(hour.temp).toFixed(0)}&deg;</div>
             </div>
         </div>
     )

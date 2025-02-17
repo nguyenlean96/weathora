@@ -1,10 +1,10 @@
-import { useWeatherContext } from "@/Context/WeatherDataProvider";
+import { useCity } from "@/Context/CityProvider";
 import { useAirQuality } from "@/Hooks/useAirQuality"
 import { useMemo } from "react";
 
 export default function AQIPanel() {
-    const { location } = useWeatherContext();
-    const { loading, data: airQualityData, error } = useAirQuality(location);
+    const { location } = useCity();
+    const { data: airQualityData } = useAirQuality(location);
 
     const aqi = useMemo(() => {
         if (!airQualityData) return 1;

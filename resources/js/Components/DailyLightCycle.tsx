@@ -17,14 +17,12 @@ export default function DailyLightCycle() {
     const {
         data: currentWeather,
         lightCycle: percentFromSunrise,
-        localTime,
         sunriseDateTime,
         sunsetDateTime,
     }
         : {
             data: any;
             lightCycle: number;
-            localTime: Date;
             sunriseDateTime: Date;
             sunsetDateTime: Date;
         }
@@ -69,7 +67,7 @@ export default function DailyLightCycle() {
     }, [percentFromSunrise]);
 
     return (
-        <div className={"bg-blue-500/80 backdrop-blur-sm rounded-xl overflow-hidden w-full flex flex-col " + (currentWeather?.sys?.sunrise ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-12')}
+        <div className={"bg-blue-500/80 backdrop-blur-sm rounded-xl overflow-hidden w-full flex flex-col " + (currentWeather.sunrise ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-12')}
             ref={displayingAreaRef}
         >
             <div className="border-b px-3 pt-2">
@@ -83,8 +81,8 @@ export default function DailyLightCycle() {
                 </div>
             </div>
             {
-                currentWeather?.sys?.sunrise ? (
-                    <div className="flex-1 w-full max-h-full h-full overflow-hidden">
+                currentWeather ? (
+                    <div className="flex-1 w-full max-h-full h-full">
                         <div className="relative w-full h-full px-2">
                             <div className='absolute z-50 rounded-bl-lg group top-0 right-0'>
                                 <div className='flex items-center space-x-2 px-3 p-1.5'>

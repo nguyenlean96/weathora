@@ -95,22 +95,18 @@ export default function Main(_props: any) {
                 <div className="col-span-2 w-full">
                     <HourlyForecast />
                 </div>
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-                    <div>
+                <div className="grid grid-cols-1 xl:grid-cols-11 gap-4">
+                    <div className="col-span-1 xl:col-span-5">
                         <div className="grid grid-cols-5 gap-2 mb-3">
-                            <div className="col-span-5 h-[10rem]">
-                                <AQIPanel />
-                            </div>
+
                             {
                                 currentWeather
                                 &&
                                 <>
-                                    <div className="col-span-2 h-[10rem]">
-                                        <TempPanel />
+                                    <div className="col-span-5 h-[10rem]">
+                                        <AQIPanel />
                                     </div>
-                                    <div className="col-span-3 h-[10rem] flex">
-                                        <DailyLightCycle />
-                                    </div>
+
                                 </>
                             }
                         </div>
@@ -119,7 +115,15 @@ export default function Main(_props: any) {
                             height={height}
                         />
                     </div>
-                    <div>
+                    <div className="grid gap-2 col-span-1 xl:col-span-6">
+                        <div className="grid grid-cols-5 gap-2">
+                            <div className="col-span-2 h-[10rem]">
+                                <TempPanel />
+                            </div>
+                            <div className="col-span-3 h-[10rem] flex">
+                                <DailyLightCycle />
+                            </div>
+                        </div>
                         <DailyForecast
                             width={width}
                             height={height}

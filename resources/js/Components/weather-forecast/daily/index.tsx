@@ -4,22 +4,25 @@ import { getDayOfWeek } from '@/Utils';
 import { useForecastDataContext } from '@/Context/ForecastDataProvider';
 
 export default function DailyForecast({ width, height, props }: { width: number; height: number; props?: any }) {
-    const { daily: dailyForecastData, loading: isForecastLoading } = useForecastDataContext();
+    const { daily: dailyForecastData, loading: isForecastLoading }: {
+        daily: Array<IDailyForecast>;
+        loading: boolean;
+    } = useForecastDataContext();
 
     function getTempMax() {
         if (dailyForecastData) {
-            return Math.max(...dailyForecastData?.list
+            return Math.max(...dailyForecastData
                 // Filter out days with max temp only
-                .map((day: { main: any; }) => day.main.temp_max)
+                .map((day: IDailyForecast) => day.temp.max)
             );
         }
         return -1;
     }
     function getTempMin() {
         if (dailyForecastData) {
-            return Math.min(...dailyForecastData?.list
+            return Math.min(...dailyForecastData
                 // Filter out days with min temp only
-                .map((day: { main: any; }) => day.main.temp_min)
+                .map((day: IDailyForecast) => day.temp.min)
             );
         }
         return -1;
@@ -54,7 +57,7 @@ export default function DailyForecast({ width, height, props }: { width: number;
                         <h4 className="text-gray-100 leading-5 mb-1">{String(`Next 6-day forecast`)}</h4>
                     </div>
                     <div className='w-full'>
-                        {dailyForecastData?.list
+                        {dailyForecastData
                             .sort((a: any, b: any) => parseInt(a.dt) - parseInt(b.dt))
                             .map((day: any, index: number) => (
                                 <div className="w-full" key={index}>
@@ -82,26 +85,32 @@ export default function DailyForecast({ width, height, props }: { width: number;
 const ForecastDayDisplay = (props: any) => {
     const tempRangeBar = useRef<HTMLDivElement>(null);
     const tempIndicator = useRef<HTMLDivElement>(null);
-    const { position, day, width, height, tempResolve } = props;
+    const { position, day, width, height, tempResolve }: {
+        position: number;
+        day: IDailyForecast;
+        width: number;
+        height: number;
+        tempResolve: (temp: number) => { min: number; max: number; avg: number };
+    } = props;
     const [tempPos, setTempPos] = useState<number>(0);
     const [tempMax, setTempMax] = useState<number>(0);
     const [tempMin, setTempMin] = useState<number>(0);
     const [thisTempRange, setThisTempRange] = useState<number>(0);
 
     useEffect(() => {
-        const { min, max, avg } = tempResolve(day.main.temp);
+        const { min, max, avg } = tempResolve(day.temp.day);
         setTempMax(max);
         setTempMin(min);
-        setThisTempRange(prev => ((day.main.temp_max - day.main.temp_min) / (max - min)));
+        setThisTempRange(prev => ((day.temp.max - day.temp.min) / (max - min)));
         if (tempRangeBar.current && tempIndicator.current) {
-            let indicatorOffset = (avg.toFixed(4) * tempRangeBar.current?.offsetWidth);
+            let indicatorOffset: number = (avg * tempRangeBar.current?.offsetWidth);
 
             if (indicatorOffset + tempIndicator.current?.offsetWidth > tempRangeBar.current?.offsetWidth) {
                 indicatorOffset = (indicatorOffset - tempIndicator.current?.offsetWidth) * .99;
             }
             setTempPos((prev) => indicatorOffset);
         }
-    }, [day.main.temp, day.main.temp_max, tempRangeBar.current, tempIndicator.current]);
+    }, [day.temp.day, day.temp.max, tempRangeBar.current, tempIndicator.current]);
 
     return (
         <div className='grid grid-cols-10 w-full pr-4'>
@@ -119,7 +128,7 @@ const ForecastDayDisplay = (props: any) => {
                 <div className='hidden bg-gradient-to-r from-blue-600 via-green-500 to-orange-600 w-full h-2 rounded ring-1 ring-white'></div>
                 <div className='grid grid-cols-12 w-full gap-x-2'>
                     <div className='text-blue-100 text-base xl:text-lg text-center font-semibold'>
-                        {Math.floor(day.main.temp_min)}
+                        {Math.floor(day.temp.min)}
                         &deg;
                     </div>
                     <div className='col-span-10 w-full flex items-center justify-center px-2'>
@@ -144,7 +153,7 @@ const ForecastDayDisplay = (props: any) => {
                         </div>
                     </div>
                     <div className='text-orange-100 text-base xl:text-lg text-start font-semibold'>
-                        {Math.round(day.main.temp_max)}
+                        {Math.round(day.temp.max)}
                         &deg;
                     </div>
                 </div>

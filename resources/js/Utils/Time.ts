@@ -1,6 +1,6 @@
 // hour:minute:second?
 // Example: 12:59:59
-function getTime(date: any, get_seconds: boolean = false): string {
+function getTime(date: Date, get_seconds: boolean = false): string {
     const hours = String(
         '0'
         + (

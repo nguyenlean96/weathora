@@ -48,12 +48,20 @@ class GeographyController extends Controller
             /**
              * Query the city column and paginate the results
              */
-            $query = City::select('name', 'country')
-                ->advancedFilter([
+            $query = City::query();
+
+            if (request()->has('lat') && request()->has('lon')) {
+                $query = $query->where('lat', '>', request()->input('lat') - 0.1)
+                    ->where('lat', '<', request()->input('lat') + 0.1)
+                    ->where('lon', '>', request()->input('lon') - 0.1)
+                    ->where('lon', '<', request()->input('lon') + 0.1);
+            } else {
+                $query = $query->advancedFilter([
                     's' => request()->input('search') ?: null,
                     'order_column' => request()->input('order_column') ?: 'name',
                     'order_direction' => request()->input('order_direction') ?: 'asc',
                 ]);
+            }
 
             if (request()->has('limit')) {
                 // Validate the limit query parameter

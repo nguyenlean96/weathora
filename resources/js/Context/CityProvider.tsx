@@ -2,11 +2,22 @@ import {
     useContext,
     createContext,
     type PropsWithChildren,
-    useState, useEffect, useMemo
+    useState,
+    useEffect,
+    useMemo,
+    useReducer,
 } from 'react';
 import { useGeography } from "@/Hooks/useGeography";
+import { useWeatherData } from '@/Hooks';
 
 const CityContext = createContext<any>({
+    location: {
+        city: null,
+        lat: null,
+        lon: null,
+    },
+    location_timezone_offset: 0,
+    fetchWeatherData: ({ city, lat, lon }: { city: string; lat: number; lon: number }) => { },
     currentPage: 1,
     totalPages: 1,
     selectedCity: '',
@@ -29,12 +40,62 @@ export function useCity() {
 
 const BASE_URL = route('api.v1.cities') + '?limit=20';
 
+const locationResolver = (state: any, action: any) => {
+    switch (action.type) {
+        case 'SET_LOCATION':
+            return {
+                ...state,
+                city: action.city,
+                lat: action.lat,
+                lon: action.lon,
+            };
+        case 'SET_LAT':
+            return {
+                ...state,
+                lat: action.lat,
+            };
+
+        case 'SET_LON':
+            return {
+                ...state,
+                lon: action.lon,
+            };
+        case 'SET_CITY':
+            return {
+                ...state,
+                city: action.city,
+            };
+        case 'RESET_LOCATION':
+            return {
+                city: null,
+                lat: null,
+                lon: null,
+            };
+        default:
+            return state;
+    }
+}
+
 export function CityProvider({ children }: PropsWithChildren) {
     const [city, setCity] = useState<string>('');
+    const [location, dispatchLocationResolver] = useReducer(locationResolver, {
+        city: null,
+        lat: null,
+        lon: null,
+    });
+
+    const { timezone_offset }: {
+        timezone_offset: number;
+    } = useWeatherData(location);
+
+    const fetchWeatherData = ({ city, lat, lon }: { city: string; lat: number; lon: number }) => {
+        dispatchLocationResolver({ type: 'SET_LOCATION', city, lat, lon });
+    }
+
     const cityUrl = useMemo(() => {
         let url = BASE_URL;
         if (city.length > 0) {
-            url += `&search=${city}`;
+            url += `&search=${String(city).trim().toLowerCase().replace(' ', '%20')}`;
         }
         return url;
     }, [city]);
@@ -59,6 +120,9 @@ export function CityProvider({ children }: PropsWithChildren) {
 
     return (
         <CityContext.Provider value={{
+            location,
+            location_timezone_offset: timezone_offset,
+            fetchWeatherData,
             currentPage,
             totalPages,
             hasMore,

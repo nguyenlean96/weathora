@@ -12,21 +12,20 @@ class OpenWeatherController extends Controller
 {
     use ApiResponder;
 
+    /**
+     *  [SCHEDULED TO BE DEPRECATED]
+     *  Get the current weather data
+     *
+     *  @return JsonResponse
+     */
     public function current(): JsonResponse
     {
         try {
-            /**
-             * Deprecated
-             */
-            // if (!request()->has('location')) {
-            //     throw new \Exception('Location is required');
-            // }
             if (!request()->has('lat') || !request()->has('lon')) {
                 throw new \Exception('Invlaid location');
             }
 
             $validated = request()->validate([
-                // 'location' => 'required|string', # Deprecated got replaced by lat and lon
                 'lat' => 'required|numeric',
                 'lon' => 'required|numeric',
                 'units' => 'string|in:metric,imperial|nullable',
@@ -67,21 +66,20 @@ class OpenWeatherController extends Controller
         }
     }
 
+    /**
+     *  [SCHEDULED TO BE DEPRECATED]
+     *  Get the forecast weather data
+     *
+     *  @return JsonResponse
+     */
     public function forecast(): JsonResponse
     {
         try {
-            /**
-             * Deprecated
-             */
-            // if (!request()->has('location')) {
-            //     throw new \Exception('Location is required');
-            // }
             if (!request()->has('lat') || !request()->has('lon')) {
                 throw new \Exception('Invlaid location');
             }
 
             $validated = request()->validate([
-                // 'location' => 'required|string', # Deprecated got replaced by lat and lon
                 'lat' => 'required|numeric',
                 'lon' => 'required|numeric',
                 'units' => 'string|in:metric,imperial|nullable',
@@ -151,6 +149,35 @@ class OpenWeatherController extends Controller
                 $resData = json_decode($response->getBody()->getContents());
 
                 unset($resData->coord);
+                return $this->success($resData);
+            } else {
+                return $this->error('Failed to fetch weather');
+            }
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
+    public function oneCall(): JsonResponse
+    {
+        try {
+            if (!request()->has('lat') || !request()->has('lon')) {
+                throw new \Exception('Invlaid location');
+            }
+
+            $validated = request()->validate([
+                'lat' => 'required|numeric',
+                'lon' => 'required|numeric',
+            ]);
+
+            $response = OpenWeatherClient::getOneCallData(lat: $validated['lat'], lon: $validated['lon']);
+
+            if ($response->getStatusCode() === 200) {
+                $resData = json_decode($response->getBody()->getContents());
+
+                unset($resData->lat);
+                unset($resData->lon);
+
                 return $this->success($resData);
             } else {
                 return $this->error('Failed to fetch weather');

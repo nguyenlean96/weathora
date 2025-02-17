@@ -1,10 +1,10 @@
-import { useWeatherData } from '@/Hooks/useWeather';
+import { useWeatherData } from '@/Hooks';
 import {
     useContext, createContext,
     type PropsWithChildren,
     useMemo
 } from 'react';
-import { useWeatherContext } from './WeatherDataProvider';
+import { useCity } from './CityProvider';
 
 const CurrentWeatherContext = createContext<any>(null);
 
@@ -19,23 +19,31 @@ export function useCurrentWeather() {
 }
 
 export default function CurrentWeatherProvider({ children }: PropsWithChildren) {
-    const { location } = useWeatherContext();
-    const { loading, data, fetcher } = useWeatherData(location);
+    const { location } = useCity();
+    const {
+        loading,
+        timezone_offset: timezone,
+        current_weather: data,
+        hourly_forecast,
+    }: {
+        loading: boolean;
+        timezone_offset: number;
+        current_weather: ICurrentWeather;
+        hourly_forecast: Array<IHourlyForecast>;
+    } = useWeatherData(location);
 
     const localTime = useMemo(() => {
         if (loading) {
             return null;
         }
 
-        const { timezone } = data || {};
-
-        if (!timezone) {
+        if (timezone === null) {
             return null;
         }
 
         const now = new Date();
         const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-        return new Date(utc + (timezone * 1000));
+        return new Date(utc + ((timezone || 0) * 1000));
     }, [data, loading]);
 
     const sunriseDateTime = useMemo(() => {
@@ -43,16 +51,11 @@ export default function CurrentWeatherProvider({ children }: PropsWithChildren) 
             return null;
         }
 
-        if (!data) {
+        if (data === null) {
             return null;
         }
 
-        if (!data?.sys) {
-            return null;
-        }
-
-        const { sunrise } = data?.sys || {};
-        const { timezone } = data || {};
+        const { sunrise } = data || {};
 
         if (!sunrise) {
             return null;
@@ -69,16 +72,11 @@ export default function CurrentWeatherProvider({ children }: PropsWithChildren) 
             return null;
         }
 
-        if (!data) {
+        if (data === null) {
             return null;
         }
 
-        if (!data?.sys) {
-            return null;
-        }
-
-        const { sunset } = data?.sys || {};
-        const { timezone } = data || {};
+        const { sunset } = data || {};
 
         if (!sunset) {
             return null;
@@ -95,11 +93,7 @@ export default function CurrentWeatherProvider({ children }: PropsWithChildren) 
             return 0;
         }
 
-        if (!data) {
-            return 0;
-        }
-
-        if (!data?.sys) {
+        if (data === null) {
             return 0;
         }
 
@@ -131,15 +125,31 @@ export default function CurrentWeatherProvider({ children }: PropsWithChildren) 
         return fromSunrisePercent;
     }, [data, loading]);
 
+    const { temp_min, temp_max } = useMemo(() => {
+        if (loading) {
+            return { temp_min: 0, temp_max: 0 };
+        }
+
+        if (!hourly_forecast) {
+            return { temp_min: 0, temp_max: 0 };
+        }
+
+        return {
+            temp_min: Math.min(...hourly_forecast.map((hour) => hour.temp)),
+            temp_max: Math.max(...hourly_forecast.map((hour) => hour.temp)),
+        }
+    }, [data, loading]);
+
     return (
         <CurrentWeatherContext.Provider value={{
             loading,
             data,
+            temp_min,
+            temp_max,
             localTime,
             sunriseDateTime,
             sunsetDateTime,
             lightCycle,
-            fetcher
         }}>
             {children}
         </CurrentWeatherContext.Provider>

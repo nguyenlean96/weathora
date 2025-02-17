@@ -2,7 +2,6 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { useDebouncedCallback } from '@mantine/hooks';
 import { useCity } from "@/Context/CityProvider";
 import { usePage } from "@inertiajs/react";
-import { useWeatherContext } from "@/Context/WeatherDataProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,7 +18,7 @@ export default function SearchPanel(_props: any) {
         data: citiesData,
         fetchData,
     } = useCity();
-    const { fetchWeatherData } = useWeatherContext();
+    const { fetchWeatherData } = useCity();
 
     const cities = useMemo(() => citiesData, [isLoading, citiesData]);
 

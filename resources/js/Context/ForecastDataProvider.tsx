@@ -1,11 +1,11 @@
-import { useForecastData } from '@/Hooks';
+import { useWeatherData } from '@/Hooks';
 import {
     useContext,
     createContext,
     type PropsWithChildren,
-    useState, useEffect, useMemo
+    useMemo
 } from 'react';
-import { useWeatherContext } from './WeatherDataProvider';
+import { useCity } from './CityProvider';
 
 const ForecastDataContext = createContext<any>(null);
 
@@ -21,8 +21,16 @@ export function useForecastDataContext() {
 
 
 export default function ForecastDataProvider({ children }: PropsWithChildren) {
-    const { location } = useWeatherContext();
-    const { loading, data } = useForecastData(location);
+    const { location } = useCity();
+    const {
+        loading,
+        hourly_forecast: hourly,
+        daily_forecast: daily,
+    }: {
+        loading: boolean;
+        hourly_forecast: Array<IHourlyForecast>;
+        daily_forecast: Array<IDailyForecast>;
+    } = useWeatherData(location);
 
     /**
      *
@@ -96,14 +104,6 @@ export default function ForecastDataProvider({ children }: PropsWithChildren) {
 
         return [filteredHours, filteredDays];
     };
-
-    const { hourly, daily } = useMemo(() => {
-        if (!loading && data) {
-            const [hourly, daily] = UniqueDays(data);
-            return { hourly, daily };
-        }
-        return { hourly: null, daily: null };
-    }, [data]);
 
     return (
         <ForecastDataContext.Provider value={{

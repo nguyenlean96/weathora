@@ -1,8 +1,19 @@
+import { useCity } from '@/Context/CityProvider';
 import { useCurrentWeather } from '@/Context/CurrentWeatherProvider';
 import { motion } from 'motion/react'
 
 export default function CurrentWeather() {
-    const { loading: isLoading, data: currentWeather } = useCurrentWeather();
+    const { location }: {
+        location: {
+            city: string;
+            lat: number;
+            lon: number;
+        };
+    } = useCity();
+    const { loading: isLoading, data: currentWeather }:{
+        loading: boolean;
+        data: ICurrentWeather;
+    } = useCurrentWeather();
     return (
         <div>
             {/* CITY NAME */}
@@ -22,7 +33,7 @@ export default function CurrentWeather() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"></path>
                     </motion.svg>
-                    <h3 className="text-base xl:text-lg inline-block text-gray-600">{String(currentWeather?.name)}</h3>
+                    <h3 className="text-base xl:text-lg inline-block text-gray-600">{String(location.city)}</h3>
                 </div>
             }
 
@@ -32,7 +43,7 @@ export default function CurrentWeather() {
                 <div className="p-3 rounded-lg bg-gradient-to-r from-gray-50/20 md:from-gray-50/40 via-gray-100/40 md:via-gray-100/60 to-gray-200/50 md:to-gray-200 backdrop-blur-sm mb-3 grid grid-cols-1 xl:grid-cols-2">
                     <div className="p-6">
                         {/* CURRENT TEMPERATURE */}
-                        <h3 className="text-center xl:text-start text-5xl xl:text-7xl py-6 text-gray-600">{Math.round(currentWeather?.main.temp)}&deg;</h3>
+                        <h3 className="text-center xl:text-start text-5xl xl:text-7xl py-6 text-gray-600">{Math.round(currentWeather.temp)}&deg;</h3>
                         {/* WEATHER DESCRIPTION */}
                         <div className='text-gray-600 text-lg xl:text-xl text-center xl:text-start'>
                             {String(currentWeather?.weather[0].description)

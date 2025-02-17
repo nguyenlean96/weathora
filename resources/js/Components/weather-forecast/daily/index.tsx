@@ -33,7 +33,7 @@ export default function DailyForecast(props: any) {
                     }}
                 >
                     <div className="w-full px-1 border-b">
-                        <h4 className="text-gray-100 leading-5 mb-1">{String(`Next 6-day forecast`)}</h4>
+                        <h4 className="text-gray-100 leading-5 mb-1">{String(`Next ${dailyForecastData.length}-day forecast`)}</h4>
                     </div>
                     <div className='w-full flex flex-col gap-y-2'>
                         {dailyForecastData

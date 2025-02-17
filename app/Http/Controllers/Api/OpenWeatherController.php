@@ -131,4 +131,32 @@ class OpenWeatherController extends Controller
             return $this->error($e->getMessage());
         }
     }
+
+    public function airPollution(): JsonResponse
+    {
+        try {
+            if (!request()->has('lat') || !request()->has('lon')) {
+                throw new \Exception('Invlaid location');
+            }
+
+            $validated = request()->validate([
+                'lat' => 'required|numeric',
+                'lon' => 'required|numeric',
+                'units' => 'string|in:metric,imperial|nullable',
+            ]);
+
+            $response = OpenWeatherClient::getAirPollutionData(lat: $validated['lat'], lon: $validated['lon']);
+
+            if ($response->getStatusCode() === 200) {
+                $resData = json_decode($response->getBody()->getContents());
+
+                unset($resData->coord);
+                return $this->success($resData);
+            } else {
+                return $this->error('Failed to fetch weather');
+            }
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
 }

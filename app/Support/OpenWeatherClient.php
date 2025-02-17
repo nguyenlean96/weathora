@@ -8,6 +8,18 @@ use Psr\Http\Message\ResponseInterface;
 class OpenWeatherClient
 {
     /**
+     * Get the OpenWeather API URL.
+     *
+     * @param string $version
+     * @return string
+     */
+    private static function getApi(
+        string $version = '2.5'
+    ): string {
+        return config('services.open_weather.api')[$version] . '/';
+    }
+
+    /**
      * Get the weather data from the OpenWeather API.
      *
      * @param string $city
@@ -21,7 +33,9 @@ class OpenWeatherClient
         array $params = ['units' => 'metric']
     ): ResponseInterface {
 
-        $baseUrl = config('services.open_weather.api') . '/' . $service . '?appid=' . config('services.open_weather.key');
+        $baseUrl = OpenWeatherClient::getApi(
+            version: $service === 'onecall' ? '3.0' : '2.5'
+        ) . $service . '?appid=' . config('services.open_weather.key');
 
         if (empty($lat) || empty($lon)) {
             throw new \InvalidArgumentException('Invalid location');
@@ -80,6 +94,27 @@ class OpenWeatherClient
         }
         return self::getData(
             service: 'forecast',
+            lat: $lat,
+            lon: $lon,
+            params: $params
+        );
+    }
+
+    /**
+     * @param string $city
+     * @param array $params
+     * @return ResponseInterface
+     */
+    public static function getAirPollutionData(
+        float $lat = null,
+        float $lon = null,
+        array $params = ['units' => 'metric']
+    ): ResponseInterface {
+        if (empty($lat) || empty($lon)) {
+            throw new \InvalidArgumentException('Invalid location');
+        }
+        return self::getData(
+            service: 'air_pollution',
             lat: $lat,
             lon: $lon,
             params: $params

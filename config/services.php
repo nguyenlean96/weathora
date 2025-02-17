@@ -36,7 +36,10 @@ return [
     ],
 
     'open_weather' => [
-        'api' => env('OPENWEATHER_API_URL'),
+        'api' => [
+            '2.5' => env('OPENWEATHER_API') . '/2.5',
+            '3.0' => env('OPENWEATHER_API') . '/3.0',
+        ],
         'key' => env('OPENWEATHER_KEY'),
     ],
 

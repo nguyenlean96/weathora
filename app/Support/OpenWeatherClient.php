@@ -99,4 +99,25 @@ class OpenWeatherClient
             params: $params
         );
     }
+
+    /**
+     * @param string $city
+     * @param array $params
+     * @return ResponseInterface
+     */
+    public static function getAirPollutionData(
+        float $lat = null,
+        float $lon = null,
+        array $params = ['units' => 'metric']
+    ): ResponseInterface {
+        if (empty($lat) || empty($lon)) {
+            throw new \InvalidArgumentException('Invalid location');
+        }
+        return self::getData(
+            service: 'air_pollution',
+            lat: $lat,
+            lon: $lon,
+            params: $params
+        );
+    }
 }
